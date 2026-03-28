@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "investement-calculator",
+      "name": "investment-calculator",
       "dependencies": {
         "pinia": "^3.0.4",
         "vue": "beta",
