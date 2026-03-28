@@ -1,73 +1,28 @@
-# .
+# Notes informacji jak działają instrumenty finansowe
 
-This template should help get you started developing with Vue 3 in Vite.
+Nie fakt checkowałem patrząc na różne źródła :p
 
-## Recommended IDE Setup
+## Jak liczyć okres trwania lokaty
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Załóżmy że inwestujemy 1000 zł.
 
-## Recommended Browser Setup
+- https://moneteo.com/narzedzia/kalkulator-lokat
+  - Jeśli nie ma roku przestępnego i założysz lokatę na 3 miesiące 1 lutego, to skończy się ona 1 maja. I będzie ona trwała 89 dni
+    - zysk brutto to 1000 zł * 89 / 365
+  - Jeśli jest rok przestępny i założysz lokatę na 3 miesiące 1 lutego, to skończy się ona 1 maja. I będzie ona trwała 90 dni
+    - zysk brutto to 1000 zł * 90 / 365
+  - Jeśli założysz lokatę na 3 miesiące 15 maja, to skończy się ona 15 sierpnia, to będzie trwała 92 dni
+    - zysk brutto to 1000 zł * 92 / 365
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Różne banki mają inaczej, niektóre liczą lokatę, zakłądają że każdy miesiąc ma 30 dni, niektóre dzielą zawsze przez 365, niektóre dzielą przez 366 jeśli jest przestępny.
+Bezpieczniej założyć że zawsze dzielimy przez 365
 
-## Type Support for `.vue` Imports in TS
+## Zaokrąglanie podatku od zysków kapitałowych (AKA podatek belki)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+https://pl.wikipedia.org/wiki/Podatek_od_dochod%C3%B3w_kapita%C5%82owych_w_Polsce#Zaokr%C4%85glanie_kwot_podatku
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-bun install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-bun dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-bun run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-bun test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-bun run build
-
-# Runs the end-to-end tests
-bun test:e2e
-# Runs the tests only on Chromium
-bun test:e2e --project=chromium
-# Runs the tests of a specific file
-bun test:e2e tests/example.spec.ts
-# Runs the tests in debug mode
-bun test:e2e --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-bun lint
-```
+W Polsce jest 19% podatku z zysków kapitałowych
+1. Biorę lokatę 1000 zł i zarobiam brutto 10.08 zł.
+2. Podatek belki to 19% tego, czyli 1.9152.
+3. Zaokrąglamy w górę do drugiego miejsca po przecinku, czyli 1.92
+4. Więc zysk netto to 10.08-1.92=8.16
