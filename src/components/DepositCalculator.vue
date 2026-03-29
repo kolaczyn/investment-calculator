@@ -5,71 +5,75 @@ import { getDepositGains } from '@/utils/getDepositGains';
 import { computed, ref } from 'vue';
 
 
-const depositAmount = ref('1000')
-const depositStartDate = ref("2026-01-19")
-const depositAnnualProfit = ref('2')
-const depositMonths = ref('6')
+const amount = ref('1000')
+const startDate = ref("2026-01-19")
+const annualInterest = ref('2')
+const periodMonths = ref('6')
 
 const form = computed(() => ({
-    amount: Number(depositAmount.value),
-    startDate: new Date(depositStartDate.value),
-    annualProfit: Number(depositAnnualProfit.value),
-    months: Number(depositMonths.value)
+    amount: Number(amount.value),
+    startDate: new Date(startDate.value),
+    annualInterest: Number(annualInterest.value),
+    periodMonths: Number(periodMonths.value)
 
 }))
 
-const depositEndDate = computed(() => getDepositEndDate(form.value.startDate, form.value.months))
+const depositEndDate = computed(() => getDepositEndDate(form.value.startDate, form.value.periodMonths))
 
 
-// TODO ogarnąć zaokrąglanie
 const amountAfterEnd = computed(() => {
     const f = form.value
     return getDepositGains({
-        // TODO rename args, because the names are so different here :p
-        annualGain: f.annualProfit / 100,
-        capital: f.amount,
-        periodMonths: f.months,
+        annualGain: f.annualInterest / 100,
+        amount: f.amount,
+        periodMonths: f.periodMonths,
         startDate: f.startDate
     })
 })
 
 
+const ids = {
+    amount: 'amount',
+    startDate: 'start-date',
+    annualInterest: 'annual-interest',
+    periodMonths: 'periodMonths'
+
+}
 
 </script>
 <template>
     <h2>Kalkulator lokat</h2>
 
-    <label for="deposit-start-date">Kwota zaalokowana na lokacie</label>
+    <label :for="ids.amount">Kwota zaalokowana na lokacie</label>
     <br />
-    <input id="deposit-start-date" v-model="depositAmount" type="number" />
-    <br />
-
-    <label for="deposit-start-date">Początek lokaty</label>
-    <br />
-    <input id="deposit-start-date" v-model="depositStartDate" type="date" />
+    <input :id="ids.amount" v-model="amount" type="number" />
     <br />
 
-    <label for="annual-profit">Oprocentowanie w skali roku</label>
+    <label :for="ids.startDate">Początek lokaty</label>
     <br />
-    <input id="annual-profit" v-model="depositAnnualProfit" type="number" />
+    <input :id="ids.startDate" v-model="startDate" type="date" />
     <br />
 
-    <label for="deposit-period">Ile miesięcy</label>
+    <label :for="ids.annualInterest">Oprocentowanie w skali roku</label>
     <br />
-    <input id="deposit-period" v-model="depositMonths" type="number" />
+    <input :id="ids.annualInterest" v-model="annualInterest" type="number" step="0.5" />
+    <br />
+
+    <label :for="periodMonths">Ile miesięcy</label>
+    <br />
+    <input :id="periodMonths" v-model="periodMonths" type="number" />
     <br />
     <hr />
 
     <div>
-        Liczenie zysku z lokaty na kwotę <b>{{ depositAmount }} zł</b> rozpoczętej <b>{{ depositStartDate }}</b> z
+        Liczenie zysku z lokaty na kwotę <b>{{ amount }} zł</b> rozpoczętej <b>{{ startDate }}</b> z
         oprocentowaniem
-        rocznym <b>{{ depositAnnualProfit }}%</b>
-        na <b>{{ depositMonths }} miesiące</b>.
+        rocznym <b>{{ annualInterest }}%</b>
+        na <b>{{ periodMonths }} miesiące</b>.
     </div>
     <hr />
     <div>
         <div>
-
             Kończy się {{ formatDate(depositEndDate) }}.
         </div>
         <div>Zysk netto: {{ amountAfterEnd.netGain }} zł</div>

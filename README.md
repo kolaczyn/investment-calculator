@@ -26,3 +26,7 @@ W Polsce jest 19% podatku z zysków kapitałowych
 2. Podatek belki to 19% tego, czyli 1.9152.
 3. Zaokrąglamy w górę do drugiego miejsca po przecinku, czyli 1.92
 4. Więc zysk netto to 10.08-1.92=8.16
+
+## Todosy
+
+- Kapitalizacja odsetek w lokacie

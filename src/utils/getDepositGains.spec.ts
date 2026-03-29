@@ -45,7 +45,9 @@ describe("getDepositGains", () => {
   test.each(testCases)(
     `getDepositGains $i`,
     (capital, startDate, periodMonths, annualGain, expected) => {
-      expect(getDepositGains({ capital, startDate, periodMonths, annualGain })).toEqual(expected);
+      expect(getDepositGains({ amount: capital, startDate, periodMonths, annualGain })).toEqual(
+        expected,
+      );
     },
   );
 });
