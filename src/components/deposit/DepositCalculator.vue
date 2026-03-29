@@ -4,9 +4,10 @@ import { computed, ref } from 'vue';
 import { getDepositEndDate } from './utils/getDepositEndDate';
 import { getDepositGains } from './utils/getDepositGains';
 import AppInput from '../app-input/AppInput.vue';
+import Card from '../card/Card.vue';
 
 const amount = ref(1000)
-const startDate = ref("2026-01-19")
+const startDate = ref("1026-01-19")
 const annualInterest = ref(2)
 const periodMonths = ref(6)
 
@@ -21,28 +22,31 @@ const amountAfterEnd = computed(() => getDepositGains({
 </script>
 
 <template>
-    <h2>Kalkulator lokat</h2>
+    <div class="grid gap-2">
+        <Card class="grid gap-0.5">
+            <h1 class="text-2xl">Kalkulator lokat</h1>
+            <AppInput id="amount" type="number" v-model.number="amount" />
+            <AppInput id="start-date" type="date" v-model="startDate" />
+            <AppInput id="annual-interest" type="number" v-model.number="annualInterest" step="0.5" />
+            <AppInput id="period-months" type="number" v-model.number="periodMonths" />
+        </Card>
 
-    <AppInput id="amount" type="number" v-model.number="amount" />
-    <AppInput id="start-date" type="date" v-model="startDate" />
-    <AppInput id="annual-interest" type="number" v-model.number="annualInterest" step="0.5" />
-    <AppInput id="period-months" type="number" v-model.number="periodMonths" />
-
-    <div>
-        Liczenie zysku z lokaty na kwotę <b>{{ amount }} zł</b> rozpoczętej <b>{{ startDate }}</b> z
-        oprocentowaniem
-        rocznym <b>{{ annualInterest }}%</b>
-        na <b>{{ periodMonths }} miesiące</b>.
+        <Card>
+            <h1 class="text-xl">Wyniki</h1>
+            <p class="mb-1">
+                Liczenie zysku z lokaty na kwotę <b>{{ amount }} zł</b> rozpoczętej <b>{{ startDate }}</b> z
+                oprocentowaniem
+                rocznym <b>{{ annualInterest }}%</b>
+                na <b>{{ periodMonths }} miesiące</b>.
+            </p>
+            <div>
+                <div>
+                    Kończy się: {{ formatDate(depositEndDate) }}.
+                </div>
+                <div>Zysk netto: {{ amountAfterEnd.netGain }} zł</div>
+                <div>Podatki {{ amountAfterEnd.taxes }} zł</div>
+                <div>Depozyt: {{ amount }} zł</div>
+            </div>
+        </Card>
     </div>
-    <hr />
-    <div>
-        <div>
-            Kończy się {{ formatDate(depositEndDate) }}.
-        </div>
-        <div>Zysk netto: {{ amountAfterEnd.netGain }} zł</div>
-        <div>Podatki {{ amountAfterEnd.taxes }} zł</div>
-        <div>Depozyt {{ amount }} zł</div>
-    </div>
-
-
 </template>

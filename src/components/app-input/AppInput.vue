@@ -10,8 +10,9 @@ const model = defineModel()
 </script>
 
 <template>
-    <label :for="id">Kwota zaalokowana na lokacie</label>
-    <br />
-    <input :id="id" v-model="model" :type="type" :step="step" />
-    <br />
+    <div>
+        <label class="block" :for="id">Kwota zaalokowana na lokacie</label>
+        <input class="bg-white border border-black rounded-sm p-1 mb-1.5" :id="id" v-model="model" :type="type"
+            :step="step" />
+    </div>
 </template>
