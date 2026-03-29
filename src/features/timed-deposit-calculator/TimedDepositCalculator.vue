@@ -1,20 +1,24 @@
 <script setup lang="ts">
+import AppInput from '@/shared/components/AppInput.vue';
+import Card from '@/shared/components/Card.vue';
 import Container from '@/shared/components/Container.vue';
 import { formatDate } from '@/shared/utils/formatDate';
 import { computed, reactive } from 'vue';
 import { getDepositEndDate } from './utils/getDepositEndDate';
 import { getDepositGains } from './utils/getDepositGains';
-import { mockData } from '@/shared/mockData';
-import AppInput from '@/shared/components/AppInput.vue';
-import Card from '@/shared/components/Card.vue';
 
+const props = defineProps<{
+    amount: number,
+    startDate: string,
+    annualInterest: number,
+    periodMonths: number,
+}>()
 
-const initial = mockData.timedDeposits[0]!
 const f = reactive({
-    amount: initial.amount,
-    startDate: initial.startDate,
-    annualInterest: initial.annualInterest,
-    periodMonths: initial.periodMonths
+    amount: props.amount,
+    startDate: props.startDate,
+    annualInterest: props.annualInterest,
+    periodMonths: props.periodMonths
 })
 
 const depositEndDate = computed(() => getDepositEndDate(new Date(f.startDate), f.periodMonths))

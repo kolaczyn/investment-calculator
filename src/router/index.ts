@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/features/home/HomeView.vue";
-import DepositCalculator from "@/features/timed-deposit-calculator/TimedDepositCalculator.vue";
+import TimedDepositCalculatorView from "@/features/timed-deposit-calculator/TimedDepositCalculatorView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,8 +12,8 @@ const router = createRouter({
     },
     {
       path: "/kalkulator/lokata",
-      name: "deposit-calculator",
-      component: DepositCalculator,
+      name: "timed-deposit-calculator",
+      component: TimedDepositCalculatorView,
     },
   ],
 });
