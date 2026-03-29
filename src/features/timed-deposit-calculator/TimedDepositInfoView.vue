@@ -3,7 +3,7 @@ import Container from '@/shared/components/Container.vue';
 import { apiUrl } from '@/shared/const/apiUrl';
 import type { FetchInfo } from '@/shared/types/FetchInfo';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
-import { reactive, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
 import AppButton from '@/shared/components/AppButton.vue';
@@ -11,6 +11,8 @@ import AppButton from '@/shared/components/AppButton.vue';
 const route = useRoute()
 const router = useRouter()
 const data = reactive<FetchInfo<TimedDeposit>>({ type: 'loading', value: null })
+const editMode = ref(false)
+const isSaving = ref(false)
 
 const fetchData = (id: string) => {
     fetch(`${apiUrl}/deposits/${id}`).then(x => x.json()).then(response => {
@@ -23,6 +25,24 @@ const fetchData = (id: string) => {
         }
     }
     )
+}
+
+const startEditing = () => {
+    editMode.value = true
+}
+
+const save = async () => {
+    if (data.type !== 'resolved') return
+    isSaving.value = true
+    // we don't watch to patch id
+    const { id, ...newData } = data.value
+    await fetch(`${apiUrl}/deposits/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(newData)
+    }).then(res => res.json())
+
+    isSaving.value = false
+    editMode.value = false
 }
 
 const removeDeposit = async () => {
@@ -38,7 +58,6 @@ const removeDeposit = async () => {
     }).then(res => res.json())
 
     await router.push({ path: '/' })
-
 }
 
 watch(() => route.params.id as string, id => fetchData(id), { immediate: true })
@@ -49,10 +68,16 @@ watch(() => route.params.id as string, id => fetchData(id), { immediate: true })
         <Container>
             <template v-if="data.type === 'resolved'">
                 <h1 class="text-2xl">Dane o lokacie</h1>
-                <TimedDepositCalculator :data="data.value" view-mode="viewing">
+                <TimedDepositCalculator :data="data.value" :view-mode="editMode ? 'editing' : 'viewing'">
                     <template v-slot:action>
-                        <AppButton type="danger" @click="removeDeposit">
-                            Usuń lokatę
+                        <AppButton v-if="editMode" type="primary" @click="save" :disabled="isSaving">
+                            Zapisz
+                        </AppButton>
+                        <AppButton v-else type="primary" @click="startEditing">
+                            Edytuj
+                        </AppButton>
+                        <AppButton class="ml-2" type="danger" @click="removeDeposit">
+                            Usuń
                         </AppButton>
                     </template>
                 </TimedDepositCalculator>
