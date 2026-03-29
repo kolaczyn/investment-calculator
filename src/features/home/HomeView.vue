@@ -36,7 +36,7 @@ onMounted(() => {
 
             <Card class="my-4">
                 <template v-slot:header>
-                    <h2 class="text-xl">Obligacje Indeksowane Inflacją</h2>
+                    <h2 class="text-xl">Obligacje indeksowane inflacją</h2>
                 </template>
                 <p>Brak</p>
             </Card>

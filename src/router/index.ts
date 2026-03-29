@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/components/home/HomeView.vue";
-import DepositCalculator from "@/components/deposit/DepositCalculator.vue";
+import HomeView from "@/features/home/HomeView.vue";
+import DepositCalculator from "@/features/timed-deposit-calculator/TimedDepositCalculator.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
