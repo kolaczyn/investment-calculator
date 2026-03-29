@@ -10,19 +10,17 @@ import AppButton from '@/shared/components/AppButton.vue';
 
 const router = useRouter()
 
-const data = depositInit('adding')
 const loading = ref(false)
 
-const f = reactive<TimedDeposit>(data)
+const data = reactive<TimedDeposit>(depositInit('adding'))
 
 const fetchAddDeposit = async () => {
     const result: TimedDeposit = await fetch(`${apiUrl}/deposits`, {
         method: 'POST',
-        body: JSON.stringify(f)
+        body: JSON.stringify(data)
     }).then(res => res.json())
 
-    router.push({ path: `/lokaty/${result.id}` })
-
+    await router.push({ path: `/lokaty/${result.id}` })
 }
 
 const addDeposit = async () => {
@@ -36,7 +34,7 @@ const addDeposit = async () => {
 <template>
     <Container>
         <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
-        <TimedDepositCalculator :data="f" :view-mode="loading ? 'loading' : 'editing'">
+        <TimedDepositCalculator :data="data" :view-mode="loading ? 'loading' : 'editing'">
             <template v-slot:action>
                 <AppButton @click="addDeposit">
                     Dodaj lokatę
