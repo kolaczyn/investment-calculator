@@ -28,10 +28,13 @@ onMounted(() => {
                         <AppLink :to="`/lokaty/${d.id}`">
                             {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
                                 (d.startDate)
-                            }}.
+                            }}
                         </AppLink>
                     </li>
                 </ul>
+                <div class="mt-1">
+                    <AppLink to="/lokaty/dodaj">Dodaj lokatę</AppLink>
+                </div>
             </Card>
 
             <Card class="my-4">

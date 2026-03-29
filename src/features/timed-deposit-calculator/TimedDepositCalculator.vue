@@ -47,10 +47,10 @@ const amountAfterEnd = computed(() => getDepositGains({
         </template>
         <ul class="list-disc list-inside">
             <li>
-                Kończy się - {{ formatDate(depositEndDate) }}.
+                Kończy się - {{ formatDate(depositEndDate) }}
             </li>
-            <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
             <li>Podatki - {{ amountAfterEnd.taxes }} zł</li>
+            <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
             <li>Depozyt - {{ f.amount }} zł</li>
         </ul>
     </Card>

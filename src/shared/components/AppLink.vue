@@ -1,10 +1,9 @@
 <script setup lang="ts">
-defineProps<{ to: string }>()
-
+const { className = '' } = defineProps<{ to: string, className?: string }>()
 </script>
 
 <template>
-    <RouterLink class="text-blue-600 hover:underline" :to="to">
+    <RouterLink :class="['text-blue-600 hover:underline', className]" :to="to">
         <slot></slot>
     </RouterLink>
 </template>
