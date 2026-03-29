@@ -7,7 +7,7 @@ import AppInput from '../app-input/AppInput.vue';
 import Card from '../card/Card.vue';
 
 const amount = ref(1000)
-const startDate = ref("1026-01-19")
+const startDate = ref("2026-01-19")
 const annualInterest = ref(2)
 const periodMonths = ref(6)
 
@@ -25,10 +25,11 @@ const amountAfterEnd = computed(() => getDepositGains({
     <div class="grid gap-2">
         <Card class="grid gap-0.5">
             <h1 class="text-2xl">Kalkulator lokat</h1>
-            <AppInput id="amount" type="number" v-model.number="amount" />
-            <AppInput id="start-date" type="date" v-model="startDate" />
-            <AppInput id="annual-interest" type="number" v-model.number="annualInterest" step="0.5" />
-            <AppInput id="period-months" type="number" v-model.number="periodMonths" />
+            <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="amount" />
+            <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="startDate" />
+            <AppInput label="Oprocentowanie w skali roku" id="annual-interest" type="number"
+                v-model.number="annualInterest" step="0.5" />
+            <AppInput label="Na ile miesięcy" id="period-months" type="number" v-model.number="periodMonths" />
         </Card>
 
         <Card>

@@ -2,6 +2,7 @@
 import type { InputTypeHTMLAttribute } from 'vue';
 
 defineProps<{
+    label: string
     id: string,
     type: InputTypeHTMLAttribute,
     step?: string
@@ -11,7 +12,7 @@ const model = defineModel()
 
 <template>
     <div>
-        <label class="block" :for="id">Kwota zaalokowana na lokacie</label>
+        <label class="block" :for="id">{{ label }}</label>
         <input class="bg-white border border-black rounded-sm p-1 mb-1.5" :id="id" v-model="model" :type="type"
             :step="step" />
     </div>
