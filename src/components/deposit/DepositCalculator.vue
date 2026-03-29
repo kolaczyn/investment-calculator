@@ -1,25 +1,29 @@
 <script setup lang="ts">
+import Container from '@/shared/components/Container.vue';
 import { formatDate } from '@/shared/utils/formatDate';
-import { computed, ref } from 'vue';
-import { getDepositEndDate } from './utils/getDepositEndDate';
-import { getDepositGains } from './utils/getDepositGains';
+import { computed, reactive } from 'vue';
 import AppInput from '../app-input/AppInput.vue';
 import Card from '../card/Card.vue';
-import Container from '@/shared/components/Container.vue';
+import { getDepositEndDate } from './utils/getDepositEndDate';
+import { getDepositGains } from './utils/getDepositGains';
+import { mockData } from '@/shared/mockData';
 
 
-const amount = ref(1000)
-const startDate = ref("2026-01-19")
-const annualInterest = ref(2)
-const periodMonths = ref(6)
+const initial = mockData.timedDeposits[0]!
+const f = reactive({
+    amount: initial.amount,
+    startDate: initial.startDate,
+    annualInterest: initial.annualInterest,
+    periodMonths: initial.periodMonths
+})
 
-const depositEndDate = computed(() => getDepositEndDate(new Date(startDate.value), periodMonths.value))
+const depositEndDate = computed(() => getDepositEndDate(new Date(f.startDate), f.periodMonths))
 
 const amountAfterEnd = computed(() => getDepositGains({
-    annualGain: annualInterest.value / 100,
-    amount: amount.value,
-    periodMonths: periodMonths.value,
-    startDate: new Date(startDate.value)
+    annualGain: f.annualInterest / 100,
+    amount: f.amount,
+    periodMonths: f.periodMonths,
+    startDate: new Date(f.startDate)
 }))
 </script>
 
@@ -32,11 +36,11 @@ const amountAfterEnd = computed(() => getDepositGains({
                     <h2 class="text-xl">Parametry</h2>
                 </template>
 
-                <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="amount" />
-                <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="startDate" />
+                <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="f.amount" />
+                <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate" />
                 <AppInput label="Oprocentowanie w skali roku" id="annual-interest" type="number"
-                    v-model.number="annualInterest" step="0.5" />
-                <AppInput label="Na ile miesięcy" id="period-months" type="number" v-model.number="periodMonths" />
+                    v-model.number="f.annualInterest" step="0.5" />
+                <AppInput label="Na ile miesięcy" id="period-months" type="number" v-model.number="f.periodMonths" />
             </Card>
 
             <Card>
@@ -45,10 +49,10 @@ const amountAfterEnd = computed(() => getDepositGains({
                 </template>
 
                 <p class="mb-1">
-                    Liczenie zysku z lokaty na kwotę <b>{{ amount }} zł</b> rozpoczętej <b>{{ startDate }}</b> z
+                    Liczenie zysku z lokaty na kwotę <b>{{ f.amount }} zł</b> rozpoczętej <b>{{ f.startDate }}</b> z
                     oprocentowaniem
-                    rocznym <b>{{ annualInterest }}%</b>
-                    na <b>{{ periodMonths }} miesiące</b>.
+                    rocznym <b>{{ f.annualInterest }}%</b>
+                    na <b>{{ f.periodMonths }} miesiące</b>.
                 </p>
                 <ul class="list-disc list-inside">
                     <li>
@@ -56,7 +60,7 @@ const amountAfterEnd = computed(() => getDepositGains({
                     </li>
                     <li>Zysk netto: {{ amountAfterEnd.netGain }} zł</li>
                     <li>Podatki {{ amountAfterEnd.taxes }} zł</li>
-                    <li>Depozyt: {{ amount }} zł</li>
+                    <li>Depozyt: {{ f.amount }} zł</li>
                 </ul>
             </Card>
         </main>

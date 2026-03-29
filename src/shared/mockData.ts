@@ -1,4 +1,3 @@
-import { monthsIndexes } from "@/components/deposit/utils/getDepositEndDate";
 import type { TimedDeposit } from "./types/TimedDeposit";
 
 const mockTimedDeposits: TimedDeposit[] = [
@@ -7,7 +6,7 @@ const mockTimedDeposits: TimedDeposit[] = [
     amount: 1000,
     annualInterest: 0.02,
     periodMonths: 6,
-    startDate: new Date(2026, monthsIndexes.january, 19),
+    startDate: "2026-01-19",
   },
 ];
 

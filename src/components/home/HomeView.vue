@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import AppLink from '@/shared/components/AppLink.vue';
 import Container from '@/shared/components/Container.vue';
 import { mockData } from '@/shared/mockData';
-import { formatDate } from '@/shared/utils/formatDate';
 import Card from '../card/Card.vue';
-import AppLink from '@/shared/components/AppLink.vue';
 
 </script>
 
@@ -18,7 +17,7 @@ import AppLink from '@/shared/components/AppLink.vue';
                 <ul class="list-disc list-inside">
                     <li v-for="d in mockData.timedDeposits" :key="d.id">
                         {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
-                            formatDate(d.startDate)
+                            (d.startDate)
                         }}. <AppLink to="/">Więcej</AppLink>
                     </li>
                 </ul>
