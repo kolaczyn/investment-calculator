@@ -6,6 +6,7 @@ import { reactive, ref } from 'vue';
 import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
 import { depositInit } from './const/depositInit';
 import { useRouter } from 'vue-router';
+import AppButton from '@/shared/components/AppButton.vue';
 
 const router = useRouter()
 
@@ -37,9 +38,9 @@ const addDeposit = async () => {
         <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
         <TimedDepositCalculator :data="f" :view-mode="loading ? 'loading' : 'editing'">
             <template v-slot:action>
-                <button @click="addDeposit"
-                    class="mt-2 bg-green-300 px-3 py-1.5 rounded-full border border-green-400 shadow hover:cursor-pointer">Dodaj
-                    lokatę</button>
+                <AppButton @click="addDeposit">
+                    Dodaj lokatę
+                </AppButton>
             </template>
         </TimedDepositCalculator>
     </Container>
