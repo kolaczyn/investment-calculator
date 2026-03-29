@@ -4,7 +4,7 @@ import { apiUrl } from '@/shared/const/apiUrl';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import TimedDepositCalculator from './TimedDepositCalculator.vue';
+import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
 
 const route = useRoute()
 const data = ref<TimedDeposit | null>(null)

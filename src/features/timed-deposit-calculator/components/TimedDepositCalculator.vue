@@ -4,9 +4,9 @@ import Card from '@/shared/components/Card.vue';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
 import { formatDate } from '@/shared/utils/formatDate';
 import { computed, reactive } from 'vue';
-import { getDepositEndDate } from './utils/getDepositEndDate';
-import { getDepositGains } from './utils/getDepositGains';
-import type { ViewMode } from './types';
+import { getDepositEndDate } from '../utils/getDepositEndDate';
+import { getDepositGains } from '../utils/getDepositGains';
+import type { ViewMode } from '../types';
 
 const props = defineProps<{ data: TimedDeposit, viewMode: ViewMode }>()
 

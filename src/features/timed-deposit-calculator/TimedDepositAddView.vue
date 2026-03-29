@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Container from '@/shared/components/Container.vue';
 import { depositInit } from './const/depositInit';
-import TimedDepositCalculator from './TimedDepositCalculator.vue';
+import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
 
 const data = depositInit('adding')
 console.log(data.startDate)
