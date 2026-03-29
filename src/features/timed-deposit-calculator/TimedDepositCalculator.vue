@@ -28,35 +28,29 @@ const amountAfterEnd = computed(() => getDepositGains({
 </script>
 
 <template>
-    <Container>
-        <main>
-            <h1 class="text-2xl">Kalkulator lokat</h1>
-            <Card class="grid gap-0.5 my-4">
-                <template v-slot:header>
-                    <h2 class="text-xl">Parametry</h2>
-                </template>
+    <Card class="grid gap-0.5 my-4">
+        <template v-slot:header>
+            <h2 class="text-xl">Parametry</h2>
+        </template>
 
-                <AppInput label="Kapitał w lokacie (zł)" id="amount" type="number" v-model.number="f.amount" />
-                <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate" />
-                <AppInput label="Oprocentowanie w skali roku (w %)" id="annual-interest" type="number"
-                    v-model.number="f.annualInterest" step="0.5" />
-                <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number"
-                    v-model.number="f.periodMonths" />
-            </Card>
+        <AppInput label="Kapitał w lokacie (zł)" id="amount" type="number" v-model.number="f.amount" />
+        <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate" />
+        <AppInput label="Oprocentowanie w skali roku (w %)" id="annual-interest" type="number"
+            v-model.number="f.annualInterest" step="0.5" />
+        <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="f.periodMonths" />
+    </Card>
 
-            <Card>
-                <template v-slot:header>
-                    <h2 class="text-xl">Wyniki</h2>
-                </template>
-                <ul class="list-disc list-inside">
-                    <li>
-                        Kończy się - {{ formatDate(depositEndDate) }}.
-                    </li>
-                    <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
-                    <li>Podatki - {{ amountAfterEnd.taxes }} zł</li>
-                    <li>Depozyt - {{ f.amount }} zł</li>
-                </ul>
-            </Card>
-        </main>
-    </Container>
+    <Card>
+        <template v-slot:header>
+            <h2 class="text-xl">Wyniki</h2>
+        </template>
+        <ul class="list-disc list-inside">
+            <li>
+                Kończy się - {{ formatDate(depositEndDate) }}.
+            </li>
+            <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
+            <li>Podatki - {{ amountAfterEnd.taxes }} zł</li>
+            <li>Depozyt - {{ f.amount }} zł</li>
+        </ul>
+    </Card>
 </template>

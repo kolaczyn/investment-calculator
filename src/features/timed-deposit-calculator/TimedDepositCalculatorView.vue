@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { mockData } from '@/shared/mockData';
+import Container from '@/shared/components/Container.vue';
 import TimedDepositCalculator from './TimedDepositCalculator.vue';
 
-const init = mockData.timedDeposits[0]!
+const initialData = {
+    id: "example",
+    amount: 1000,
+    annualInterest: 2,
+    periodMonths: 6,
+    startDate: "2026-01-19",
+}
+
 
 </script>
 
 <template>
-    <TimedDepositCalculator :data="init" />
+    <Container>
+        <h1 class="text-2xl">Kalkulator lokat</h1>
+        <TimedDepositCalculator :data="initialData" />
+    </Container>
 </template>
