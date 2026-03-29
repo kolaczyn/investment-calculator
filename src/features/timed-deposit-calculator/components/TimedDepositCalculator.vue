@@ -67,9 +67,11 @@ const amountAfterEnd = computed(() => getDepositGains({
                     amountAfterEnd.totalDays }} {{
                     pluralsDays(amountAfterEnd.totalDays) }})
             </li>
-            <li>Aktualny zysk - {{ formatCurrency(amountAfterEnd.currentNetGain) }}</li>
+            <li>Aktualny zysk netto - {{ formatCurrency(amountAfterEnd.currentNetGain) }}</li>
+            <li>Aktualny zysk brutto - {{ formatCurrency(amountAfterEnd.currentGrossGain) }}</li>
             <li>Podatki - {{ formatCurrency(amountAfterEnd.taxes) }}</li>
             <li>Zysk netto - {{ formatCurrency(amountAfterEnd.netGain) }}</li>
+            <li>Zysk brutto - {{ formatCurrency(amountAfterEnd.grossGain) }}</li>
             <li>Depozyt - {{ formatCurrency(data.amount) }}</li>
         </ul>
         <div v-else>

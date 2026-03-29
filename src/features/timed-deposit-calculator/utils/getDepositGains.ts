@@ -29,8 +29,10 @@ export const getDepositGains = ({ amount, startDate, periodMonths, annualGain }:
   return {
     taxes,
     netGain,
+    grossGain,
 
     currentNetGain,
+    currentGrossGain,
     daysRemaining,
     totalDays,
   };
