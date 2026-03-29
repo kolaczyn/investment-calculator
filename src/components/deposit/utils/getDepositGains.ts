@@ -1,7 +1,7 @@
+import { getCapitalGainsTax } from "@/shared/utils/getCapitalGainsTax";
 import { dateDiffInDays } from "./dateDiffInDays";
-import { getCapitalGainsTax } from "./getCapitalGainsTax";
 import { getDepositEndDate } from "./getDepositEndDate";
-import { roundCurrency } from "./roundCurrency";
+import { roundCurrency } from "@/shared/utils/roundCurrency";
 
 type Args = {
   amount: number;
@@ -16,7 +16,7 @@ export const getDepositGains = ({ amount, startDate, periodMonths, annualGain }:
   const percantageDuringDays = annualGain * (totalDays / daysInYear);
 
   const grossGain = roundCurrency(amount * percantageDuringDays);
-  const taxes = getCapitalGainsTax(amount, grossGain);
+  const taxes = getCapitalGainsTax(grossGain);
   const netGain = roundCurrency(grossGain - taxes);
   return {
     taxes,

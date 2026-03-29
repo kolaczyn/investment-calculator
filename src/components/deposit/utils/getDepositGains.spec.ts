@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { monthsIndexes } from "./getDepositEndDate";
 import { getDepositGains } from "./getDepositGains";
+import { monthsIndexes } from "./getDepositEndDate";
 
 const date = new Date(2026, monthsIndexes.february, 1);
 

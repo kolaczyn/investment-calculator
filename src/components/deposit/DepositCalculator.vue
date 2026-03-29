@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { formatDate } from '@/utils/formatDate';
-import { getDepositEndDate } from '@/utils/getDepositEndDate';
-import { getDepositGains } from '@/utils/getDepositGains';
+import { formatDate } from '@/shared/utils/formatDate';
 import { computed, ref } from 'vue';
+import { getDepositEndDate } from './utils/getDepositEndDate';
+import { getDepositGains } from './utils/getDepositGains';
 
 
 const amount = ref('1000')
