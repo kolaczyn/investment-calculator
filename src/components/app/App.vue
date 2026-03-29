@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import AppHeader from '@/shared/components/AppHeader.vue';
 import { RouterView } from 'vue-router';
-import AppHeader from '../app-header/AppHeader.vue';
 </script>
 
 <template>

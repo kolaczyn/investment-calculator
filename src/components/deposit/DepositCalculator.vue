@@ -2,11 +2,11 @@
 import Container from '@/shared/components/Container.vue';
 import { formatDate } from '@/shared/utils/formatDate';
 import { computed, reactive } from 'vue';
-import AppInput from '../app-input/AppInput.vue';
-import Card from '../card/Card.vue';
 import { getDepositEndDate } from './utils/getDepositEndDate';
 import { getDepositGains } from './utils/getDepositGains';
 import { mockData } from '@/shared/mockData';
+import AppInput from '@/shared/components/AppInput.vue';
+import Card from '@/shared/components/Card.vue';
 
 
 const initial = mockData.timedDeposits[0]!

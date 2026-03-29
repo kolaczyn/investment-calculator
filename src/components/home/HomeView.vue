@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AppLink from '@/shared/components/AppLink.vue';
+import Card from '@/shared/components/Card.vue';
 import Container from '@/shared/components/Container.vue';
 import { apiUrl } from '@/shared/const/apiUrl';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
 import { onMounted, ref } from 'vue';
-import Card from '../card/Card.vue';
 
 const data = ref<TimedDeposit[] | null>(null)
 
@@ -13,7 +13,6 @@ onMounted(() => {
         data.value = response
     })
 })
-
 </script>
 
 <template>
@@ -26,11 +25,20 @@ onMounted(() => {
                 </template>
                 <ul v-if="data" class="list-disc list-inside">
                     <li v-for="d in data" :key="d.id">
-                        {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
-                            (d.startDate)
-                        }}. <AppLink to="/">Więcej</AppLink>
+                        <AppLink to="/">
+                            {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
+                                (d.startDate)
+                            }}.
+                        </AppLink>
                     </li>
                 </ul>
+            </Card>
+
+            <Card class="my-4">
+                <template v-slot:header>
+                    <h2 class="text-xl">Obligacje Indeksowane Inflacją</h2>
+                </template>
+                <p>Brak</p>
             </Card>
         </Container>
     </main>
