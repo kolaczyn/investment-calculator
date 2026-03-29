@@ -3,7 +3,7 @@ import DepositCalculator from './DepositCalculator.vue';
 </script>
 
 <template>
-    <main class="container mx-auto">
+    <main>
         <DepositCalculator />
     </main>
 </template>

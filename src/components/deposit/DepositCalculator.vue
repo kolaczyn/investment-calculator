@@ -22,7 +22,7 @@ const amountAfterEnd = computed(() => getDepositGains({
 </script>
 
 <template>
-    <div class="grid gap-2">
+    <div class="grid gap-4 max-w-2xl mx-auto">
         <Card class="grid gap-0.5">
             <h1 class="text-2xl">Kalkulator lokat</h1>
             <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="amount" />
@@ -40,14 +40,14 @@ const amountAfterEnd = computed(() => getDepositGains({
                 rocznym <b>{{ annualInterest }}%</b>
                 na <b>{{ periodMonths }} miesiące</b>.
             </p>
-            <div>
-                <div>
+            <ul class="list-disc list-inside">
+                <li>
                     Kończy się: {{ formatDate(depositEndDate) }}.
-                </div>
-                <div>Zysk netto: {{ amountAfterEnd.netGain }} zł</div>
-                <div>Podatki {{ amountAfterEnd.taxes }} zł</div>
-                <div>Depozyt: {{ amount }} zł</div>
-            </div>
+                </li>
+                <li>Zysk netto: {{ amountAfterEnd.netGain }} zł</li>
+                <li>Podatki {{ amountAfterEnd.taxes }} zł</li>
+                <li>Depozyt: {{ amount }} zł</li>
+            </ul>
         </Card>
     </div>
 </template>
