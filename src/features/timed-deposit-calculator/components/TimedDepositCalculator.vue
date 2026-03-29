@@ -3,38 +3,31 @@ import AppInput from '@/shared/components/AppInput.vue';
 import Card from '@/shared/components/Card.vue';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
 import { formatDate } from '@/shared/utils/formatDate';
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
+import type { ViewMode } from '../types';
 import { getDepositEndDate } from '../utils/getDepositEndDate';
 import { getDepositGains } from '../utils/getDepositGains';
-import type { ViewMode } from '../types';
 
-const props = defineProps<{ data: TimedDeposit, viewMode: ViewMode }>()
+const { data, viewMode } = defineProps<{ data: TimedDeposit, viewMode: ViewMode, }>()
 
-const disableInputs = props.viewMode === 'viewing'
-
-const f = reactive({
-    amount: props.data.amount,
-    startDate: props.data.startDate,
-    annualInterest: props.data.annualInterest,
-    periodMonths: props.data.periodMonths
-})
+const disableInputs = computed(() => viewMode === 'viewing' || viewMode === 'loading')
 
 const errors = computed(() => ({
-    amount: f.amount < 1000 ? 'Minimalna kwota to 1000 zł' : null,
+    amount: data.amount < 1000 ? 'Minimalna kwota to 1000 zł' : null,
     startDate: null,
-    annualInterest: f.annualInterest <= 0 ? 'Oprocentowanie musi być dodatnie' : null,
-    periodMonths: f.periodMonths <= 0 ? 'Miesiące muszą być dodatnie' : null
+    annualInterest: data.annualInterest <= 0 ? 'Oprocentowanie musi być dodatnie' : null,
+    periodMonths: data.periodMonths <= 0 ? 'Miesiące muszą być dodatnie' : null
 }))
 
 const isFormValid = computed(() => !Object.values(errors.value).some(x => x != null))
 
-const depositEndDate = computed(() => getDepositEndDate(new Date(f.startDate), f.periodMonths))
+const depositEndDate = computed(() => getDepositEndDate(new Date(data.startDate), data.periodMonths))
 
 const amountAfterEnd = computed(() => getDepositGains({
-    annualGain: f.annualInterest / 100,
-    amount: f.amount,
-    periodMonths: f.periodMonths,
-    startDate: new Date(f.startDate)
+    annualGain: data.annualInterest / 100,
+    amount: data.amount,
+    periodMonths: data.periodMonths,
+    startDate: new Date(data.startDate)
 }))
 </script>
 
@@ -44,17 +37,17 @@ const amountAfterEnd = computed(() => getDepositGains({
             <h2 class="text-xl">Parametry</h2>
         </template>
 
-        <AppInput label="Depozyt (zł)" id="amount" type="number" v-model.number="f.amount" :disabled="disableInputs"
+        <AppInput label="Depozyt (zł)" id="amount" type="number" v-model.number="data.amount" :disabled="disableInputs"
             :error="errors.amount" />
 
-        <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate"
+        <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="data.startDate"
             :disabled="disableInputs" :error="errors.startDate" />
 
         <AppInput label="Oprocentowanie w skali roku (w procentach)" id="annual-interest" type="number"
-            v-model.number="f.annualInterest" step="0.5" :disabled="disableInputs" :error="errors.annualInterest"
+            v-model.number="data.annualInterest" step="0.5" :disabled="disableInputs" :error="errors.annualInterest"
             min="0" />
 
-        <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="f.periodMonths"
+        <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="data.periodMonths"
             :disabled="disableInputs" :error="errors.periodMonths" min="1" />
 
         <template v-slot:footer>
@@ -72,7 +65,7 @@ const amountAfterEnd = computed(() => getDepositGains({
             </li>
             <li>Podatki - {{ amountAfterEnd.taxes }} zł</li>
             <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
-            <li>Depozyt - {{ f.amount }} zł</li>
+            <li>Depozyt - {{ data.amount }} zł</li>
         </ul>
         <div v-else>
             W formularzu są błędy.
