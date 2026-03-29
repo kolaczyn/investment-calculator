@@ -16,6 +16,6 @@ const initialData = {
 <template>
     <Container>
         <h1 class="text-2xl">Kalkulator lokat</h1>
-        <TimedDepositCalculator :data="initialData" />
+        <TimedDepositCalculator :data="initialData" :is-edit="true" />
     </Container>
 </template>
