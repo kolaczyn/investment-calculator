@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import AppLink from '@/shared/components/AppLink.vue';
 import Container from '@/shared/components/Container.vue';
-import { mockData } from '@/shared/mockData';
+import { apiUrl } from '@/shared/const/apiUrl';
+import type { TimedDeposit } from '@/shared/types/TimedDeposit';
+import { onMounted, ref } from 'vue';
 import Card from '../card/Card.vue';
+
+const data = ref<TimedDeposit[] | null>(null)
+
+onMounted(() => {
+    fetch(`${apiUrl}/deposits`).then(x => x.json()).then(response => {
+        data.value = response
+    })
+})
 
 </script>
 
@@ -14,8 +24,8 @@ import Card from '../card/Card.vue';
                 <template v-slot:header>
                     <h2 class="text-xl">Lokaty</h2>
                 </template>
-                <ul class="list-disc list-inside">
-                    <li v-for="d in mockData.timedDeposits" :key="d.id">
+                <ul v-if="data" class="list-disc list-inside">
+                    <li v-for="d in data" :key="d.id">
                         {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
                             (d.startDate)
                         }}. <AppLink to="/">Więcej</AppLink>

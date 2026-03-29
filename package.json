@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "backend": "json-server db.json",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "json-server": "^1.0.0-beta.15",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",
     "vue": "beta",

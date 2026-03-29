@@ -1,8 +1,17 @@
-# Notes informacji jak działają instrumenty finansowe
+# Investement calculator
+
+Pliz, nie bierzcie tego projektu poważnie w celu podjęcia decyzji finansowej, ja to robię dla siebie dla nauki mechanizmów inwestowania. Na pewno będzie tutaj ogromna ilość błędów wynikająca z tego że nie do końca wszystko rozumiem i interpretuję poprawnie xD
+
+## Setup
+
+Trzeba mieć zainstalowany bun. Oraz utworzyć plik db.json (pusty).
+Potem `bun backend` i w drugim terminalu `bun dev`.
+
+## Notes informacji jak działają instrumenty finansowe
 
 Nie fakt checkowałem patrząc na różne źródła :p
 
-## Jak liczyć okres trwania lokaty
+### Jak liczyć okres trwania lokaty
 
 Załóżmy że inwestujemy 1000 zł.
 
@@ -17,7 +26,7 @@ Załóżmy że inwestujemy 1000 zł.
 Różne banki mają inaczej, niektóre liczą lokatę, zakłądają że każdy miesiąc ma 30 dni, niektóre dzielą zawsze przez 365, niektóre dzielą przez 366 jeśli jest przestępny.
 Bezpieczniej założyć że zawsze dzielimy przez 365
 
-## Zaokrąglanie podatku od zysków kapitałowych (AKA podatek belki)
+### Zaokrąglanie podatku od zysków kapitałowych (AKA podatek belki)
 
 https://pl.wikipedia.org/wiki/Podatek_od_dochod%C3%B3w_kapita%C5%82owych_w_Polsce#Zaokr%C4%85glanie_kwot_podatku
 
