@@ -11,6 +11,6 @@ console.log(data.startDate)
 <template>
     <Container>
         <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
-        <TimedDepositCalculator :data="data" :is-edit="true" />
+        <TimedDepositCalculator :data="data" view-mode="adding" />
     </Container>
 </template>

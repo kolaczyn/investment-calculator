@@ -23,7 +23,7 @@ watch(() => route.params.id as string, id => fetchData(id), { immediate: true })
         <Container>
             <template v-if="data">
                 <h1 class="text-2xl">Dane o lokacie</h1>
-                <TimedDepositCalculator :data="data" :is-edit="false" />
+                <TimedDepositCalculator :data="data" view-mode="viewing" />
             </template>
             <template v-else>
                 <h1 class="text-2xl">Brak wyników</h1>

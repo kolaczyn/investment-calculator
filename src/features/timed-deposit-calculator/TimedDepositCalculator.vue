@@ -6,8 +6,11 @@ import { formatDate } from '@/shared/utils/formatDate';
 import { computed, reactive } from 'vue';
 import { getDepositEndDate } from './utils/getDepositEndDate';
 import { getDepositGains } from './utils/getDepositGains';
+import type { ViewMode } from './types';
 
-const props = defineProps<{ data: TimedDeposit, isEdit: boolean }>()
+const props = defineProps<{ data: TimedDeposit, viewMode: ViewMode }>()
+
+const disableInputs = props.viewMode === 'viewing'
 
 const f = reactive({
     amount: props.data.amount,
@@ -33,12 +36,13 @@ const amountAfterEnd = computed(() => getDepositGains({
         </template>
 
         <AppInput label="Kapitał w lokacie (zł)" id="amount" type="number" v-model.number="f.amount"
-            :disabled="!isEdit" />
-        <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate" :disabled="!isEdit" />
+            :disabled="disableInputs" />
+        <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate"
+            :disabled="disableInputs" />
         <AppInput label="Oprocentowanie w skali roku (w procentach)" id="annual-interest" type="number"
-            v-model.number="f.annualInterest" step="0.5" :disabled="!isEdit" />
+            v-model.number="f.annualInterest" step="0.5" :disabled="disableInputs" />
         <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="f.periodMonths"
-            :disabled="!isEdit" />
+            :disabled="disableInputs" />
     </Card>
 
     <Card>
