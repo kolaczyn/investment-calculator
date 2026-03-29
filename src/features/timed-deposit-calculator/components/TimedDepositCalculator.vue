@@ -44,8 +44,8 @@ const amountAfterEnd = computed(() => getDepositGains({
             <h2 class="text-xl">Parametry</h2>
         </template>
 
-        <AppInput label="Kapitał w lokacie (zł)" id="amount" type="number" v-model.number="f.amount"
-            :disabled="disableInputs" :error="errors.amount" />
+        <AppInput label="Depozyt (zł)" id="amount" type="number" v-model.number="f.amount" :disabled="disableInputs"
+            :error="errors.amount" />
 
         <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate"
             :disabled="disableInputs" :error="errors.startDate" />
@@ -56,6 +56,10 @@ const amountAfterEnd = computed(() => getDepositGains({
 
         <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="f.periodMonths"
             :disabled="disableInputs" :error="errors.periodMonths" min="1" />
+
+        <template v-slot:footer>
+            <slot name="action"></slot>
+        </template>
     </Card>
 
     <Card>

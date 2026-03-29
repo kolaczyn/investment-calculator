@@ -15,5 +15,8 @@ const props = defineProps({
             <hr v-if="$slots.header" class="text-slate-300 my-1" />
         </header>
         <slot></slot>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
     </section>
 </template>
