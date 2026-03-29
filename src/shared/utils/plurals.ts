@@ -13,3 +13,4 @@ export const polishPlurals =
   };
 
 export const pluralsDays = polishPlurals("dzień", "dni", "dni");
+export const pluralsMonths = polishPlurals("miesiąc", "miesiące", "miesięcy");

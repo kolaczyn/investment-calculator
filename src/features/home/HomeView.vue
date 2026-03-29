@@ -4,9 +4,35 @@ import Card from '@/shared/components/Card.vue';
 import Container from '@/shared/components/Container.vue';
 import { apiUrl } from '@/shared/const/apiUrl';
 import type { TimedDeposit } from '@/shared/types/TimedDeposit';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { getDepositGains } from '../timed-deposit-calculator/utils/getDepositGains';
+import { formatCurrency } from '@/shared/utils/formatCurrency';
+import { pluralsMonths } from '@/shared/utils/plurals';
 
 const data = ref<TimedDeposit[] | null>(null)
+
+const dataMapped = computed(() => data.value?.map(d => ({
+    base: d,
+    gains: getDepositGains({
+        ...d,
+        startDate: new Date(d.startDate),
+        // TODO make the names consistant
+        annualGain: d.annualInterest / 100
+    })
+})) ?? null)
+
+const stats = computed(() => {
+    if (dataMapped.value == null) return null
+    const totalInvested = dataMapped.value.reduce<number>((acc, curr) => acc + curr.base.amount, 0)
+    const projectedGrossGain = dataMapped.value.reduce<number>((acc, curr) => acc + curr.gains.grossGain, 0)
+    const projectedNetGain = dataMapped.value.reduce<number>((acc, curr) => acc + curr.gains.netGain, 0)
+    return {
+        totalInvested,
+        projectedGrossGain,
+        projectedNetGain
+    }
+})
+
 
 onMounted(() => {
     fetch(`${apiUrl}/deposits`).then(x => x.json()).then(response => {
@@ -24,13 +50,21 @@ onMounted(() => {
                     <h2 class="text-xl">Lokaty</h2>
                 </template>
                 <ul v-if="data" class="list-disc list-inside">
-                    <li v-for="d in data" :key="d.id">
-                        <AppLink :to="`/lokaty/${d.id}`">
-                            {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
+                    <li v-for="{ base: d, gains: g } in dataMapped" :key="d.id">
+                        <AppLink :to="`/lokaty/${d.id}`"
+                            :title="`Zyski: brutto - ${formatCurrency(g.grossGain)}., netto - ${formatCurrency(g.netGain)}`">
+                            {{ formatCurrency(d.amount) }}, {{ d.annualInterest }}%, {{ d.periodMonths }} {{
+                                pluralsMonths(d.periodMonths) }},
+                            od {{
                                 (d.startDate)
                             }}
                         </AppLink>
                     </li>
+                </ul>
+                <ul class="my-2 list-disc list-inside" v-if="stats">
+                    <li>W sumie na lokatach masz - <b>{{ formatCurrency(stats.totalInvested) }}</b></li>
+                    <li>Zyski brutto po zakończeniu - <b>{{ formatCurrency(stats.projectedGrossGain) }}</b></li>
+                    <li>Zyski netto po zakończeniu - <b>{{ formatCurrency(stats.projectedNetGain) }}</b></li>
                 </ul>
                 <div class="mt-1">
                     <AppLink to="/lokaty/dodaj">Dodaj lokatę</AppLink>
