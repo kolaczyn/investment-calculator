@@ -4,7 +4,7 @@ const mockTimedDeposits: TimedDeposit[] = [
   {
     id: "1",
     amount: 1000,
-    annualInterest: 0.02,
+    annualInterest: 2,
     periodMonths: 6,
     startDate: "2026-01-19",
   },

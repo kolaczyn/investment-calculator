@@ -6,19 +6,15 @@ import { formatDate } from '@/shared/utils/formatDate';
 import { computed, reactive } from 'vue';
 import { getDepositEndDate } from './utils/getDepositEndDate';
 import { getDepositGains } from './utils/getDepositGains';
+import type { TimedDeposit } from '@/shared/types/TimedDeposit';
 
-const props = defineProps<{
-    amount: number,
-    startDate: string,
-    annualInterest: number,
-    periodMonths: number,
-}>()
+const props = defineProps<{ data: TimedDeposit }>()
 
 const f = reactive({
-    amount: props.amount,
-    startDate: props.startDate,
-    annualInterest: props.annualInterest,
-    periodMonths: props.periodMonths
+    amount: props.data.amount,
+    startDate: props.data.startDate,
+    annualInterest: props.data.annualInterest,
+    periodMonths: props.data.periodMonths
 })
 
 const depositEndDate = computed(() => getDepositEndDate(new Date(f.startDate), f.periodMonths))
@@ -40,31 +36,25 @@ const amountAfterEnd = computed(() => getDepositGains({
                     <h2 class="text-xl">Parametry</h2>
                 </template>
 
-                <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="f.amount" />
+                <AppInput label="Kapitał w lokacie (zł)" id="amount" type="number" v-model.number="f.amount" />
                 <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="f.startDate" />
-                <AppInput label="Oprocentowanie w skali roku" id="annual-interest" type="number"
+                <AppInput label="Oprocentowanie w skali roku (w %)" id="annual-interest" type="number"
                     v-model.number="f.annualInterest" step="0.5" />
-                <AppInput label="Na ile miesięcy" id="period-months" type="number" v-model.number="f.periodMonths" />
+                <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number"
+                    v-model.number="f.periodMonths" />
             </Card>
 
             <Card>
                 <template v-slot:header>
                     <h2 class="text-xl">Wyniki</h2>
                 </template>
-
-                <p class="mb-1">
-                    Liczenie zysku z lokaty na kwotę <b>{{ f.amount }} zł</b> rozpoczętej <b>{{ f.startDate }}</b> z
-                    oprocentowaniem
-                    rocznym <b>{{ f.annualInterest }}%</b>
-                    na <b>{{ f.periodMonths }} miesiące</b>.
-                </p>
                 <ul class="list-disc list-inside">
                     <li>
-                        Kończy się: {{ formatDate(depositEndDate) }}.
+                        Kończy się - {{ formatDate(depositEndDate) }}.
                     </li>
-                    <li>Zysk netto: {{ amountAfterEnd.netGain }} zł</li>
-                    <li>Podatki {{ amountAfterEnd.taxes }} zł</li>
-                    <li>Depozyt: {{ f.amount }} zł</li>
+                    <li>Zysk netto - {{ amountAfterEnd.netGain }} zł</li>
+                    <li>Podatki - {{ amountAfterEnd.taxes }} zł</li>
+                    <li>Depozyt - {{ f.amount }} zł</li>
                 </ul>
             </Card>
         </main>

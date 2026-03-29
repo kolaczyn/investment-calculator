@@ -25,7 +25,7 @@ onMounted(() => {
                 </template>
                 <ul v-if="data" class="list-disc list-inside">
                     <li v-for="d in data" :key="d.id">
-                        <AppLink to="/">
+                        <AppLink :to="`/lokaty/${d.id}`">
                             {{ d.amount }} zł, {{ d.annualInterest }}%, {{ d.periodMonths }} miesięcy, rozpoczęta {{
                                 (d.startDate)
                             }}.
