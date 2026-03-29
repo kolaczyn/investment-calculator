@@ -7,6 +7,7 @@ import AppInput from '../app-input/AppInput.vue';
 import Card from '../card/Card.vue';
 import Container from '@/shared/components/Container.vue';
 
+
 const amount = ref(1000)
 const startDate = ref("2026-01-19")
 const annualInterest = ref(2)
@@ -24,9 +25,13 @@ const amountAfterEnd = computed(() => getDepositGains({
 
 <template>
     <Container>
-        <main class="grid gap-4">
-            <Card class="grid gap-0.5">
-                <h1 class="text-2xl">Kalkulator lokat</h1>
+        <main>
+            <h1 class="text-2xl">Kalkulator lokat</h1>
+            <Card class="grid gap-0.5 my-4">
+                <template v-slot:header>
+                    <h2 class="text-xl">Parametry</h2>
+                </template>
+
                 <AppInput label="Kapitał w lokacie" id="amount" type="number" v-model.number="amount" />
                 <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="startDate" />
                 <AppInput label="Oprocentowanie w skali roku" id="annual-interest" type="number"
@@ -35,7 +40,10 @@ const amountAfterEnd = computed(() => getDepositGains({
             </Card>
 
             <Card>
-                <h2 class="text-xl">Wyniki</h2>
+                <template v-slot:header>
+                    <h2 class="text-xl">Wyniki</h2>
+                </template>
+
                 <p class="mb-1">
                     Liczenie zysku z lokaty na kwotę <b>{{ amount }} zł</b> rozpoczętej <b>{{ startDate }}</b> z
                     oprocentowaniem
