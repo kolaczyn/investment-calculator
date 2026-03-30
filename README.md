@@ -36,6 +36,13 @@ W Polsce jest 19% podatku z zysków kapitałowych
 3. Zaokrąglamy w górę do drugiego miejsca po przecinku, czyli 1.92
 4. Więc zysk netto to 10.08-1.92=8.16
 
+### Obligacje
+
+Pod tym linkiem są tabele odsetkowe:
+https://www.obligacjeskarbowe.pl/tabela-odsetkowa/?table_id=21471
+Nazwa obligacji EDO0135/1 mówi nam, że to jest obligacja dziesięcioletnia (bo "EDO"), która zostanie wykupiona przez Skarb Państwa 1 stycznia 2035 roku. Więc obligacja została kupiona 1 stycznia 2025 roku.
+EDO0135/1 - EDOmmyy/d 
+
 ## Todosy
 
 - Kapitalizacja odsetek w lokacie
