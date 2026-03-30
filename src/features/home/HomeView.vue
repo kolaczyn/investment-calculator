@@ -9,10 +9,12 @@ import { computed, onMounted, ref } from 'vue';
 import { depositsApi } from '../api/depositsApi';
 import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
 import type { HomeDepositStats } from './types/HomeDepositStats';
+import type { DepositFullInfo } from './types/DepositFullInfo';
+import DepositSummary from './components/DepositSummary.vue';
 
-const data = ref<DepositDto[] | null>(null)
+const depositsArr = ref<DepositDto[] | null>(null)
 
-const dataMapped = computed(() => data.value?.map(d => ({
+const depositsFullInfo = computed<DepositFullInfo[] | null>(() => depositsArr.value?.map(d => ({
     info: d,
     results: getDepositGains({
         ...d,
@@ -21,7 +23,7 @@ const dataMapped = computed(() => data.value?.map(d => ({
     })
 })) ?? null)
 
-const stats = computed(() => dataMapped.value?.reduce<HomeDepositStats>((acc, curr) => ({
+const stats = computed(() => depositsFullInfo.value?.reduce<HomeDepositStats>((acc, curr) => ({
     capital: acc.capital + curr.info.amount,
     gross: acc.gross + curr.results.profitsProjected.gross,
     net: acc.net + curr.results.profitsProjected.net,
@@ -29,7 +31,7 @@ const stats = computed(() => dataMapped.value?.reduce<HomeDepositStats>((acc, cu
 
 onMounted(async () => {
     const response = await depositsApi.getAll()
-    data.value = response
+    depositsArr.value = response
 })
 </script>
 
@@ -41,16 +43,9 @@ onMounted(async () => {
                 <template v-slot:header>
                     <h2 class="text-xl">Lokaty</h2>
                 </template>
-                <ul v-if="data" class="list-disc list-inside">
-                    <li v-for="d in dataMapped" :key="d.info.id">
-                        <AppLink :to="`/lokaty/${d.info.id}`"
-                            :title="`Zyski: brutto - ${formatCurrency(d.results.profitsProjected.gross)}, netto - ${formatCurrency(d.results.profitsProjected.net)}`">
-                            {{ formatCurrency(d.info.amount) }}, {{ d.info.interest }}%, {{ d.info.periodMonths }} {{
-                                pluralsMonths(d.info.periodMonths) }},
-                            od {{
-                                (d.info.startDate)
-                            }}
-                        </AppLink>
+                <ul v-if="depositsArr" class="list-disc list-inside">
+                    <li v-for="d in depositsFullInfo" :key="d.info.id">
+                        <DepositSummary :deposit-full-info="d" />
                     </li>
                 </ul>
                 <ul class="my-2 list-disc list-inside" v-if="stats">
