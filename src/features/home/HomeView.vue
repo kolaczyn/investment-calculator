@@ -8,6 +8,7 @@ import { computed, onMounted, ref } from 'vue';
 import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { pluralsMonths } from '@/shared/utils/plurals';
+import { depositsApi } from '../api/depositsApi';
 
 const data = ref<DepositDto[] | null>(null)
 
@@ -34,10 +35,9 @@ const stats = computed(() => {
 })
 
 
-onMounted(() => {
-    fetch(`${apiUrl}/deposits`).then(x => x.json()).then(response => {
-        data.value = response
-    })
+onMounted(async () => {
+    const response = await depositsApi.getAll()
+    data.value = response
 })
 </script>
 

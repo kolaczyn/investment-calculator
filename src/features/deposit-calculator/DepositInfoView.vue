@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import AppButton from '@/shared/components/AppButton.vue';
 import Container from '@/shared/components/Container.vue';
-import { apiUrl } from '@/shared/const/apiUrl';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import type { FetchInfo } from '@/shared/types/FetchInfo';
 import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { depositsApi } from '../api/depositsApi';
+import DepositCalculator from './components/DepositCalculator.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -13,17 +14,10 @@ const data = reactive<FetchInfo<DepositDto>>({ type: 'loading', value: null })
 const editMode = ref(false)
 const isSaving = ref(false)
 
-const fetchData = (id: string) => {
-    fetch(`${apiUrl}/deposits/${id}`).then(x => x.json()).then(response => {
-        if (response.error) {
-            data.type = 'error'
-            data.value = null
-        } else {
-            data.type = 'resolved'
-            data.value = response
-        }
-    }
-    )
+const fetchData = async (id: string) => {
+    const result = await depositsApi.getById(id)
+    data.type = result.type
+    data.value = result.value
 }
 
 const startEditing = () => {
@@ -33,12 +27,9 @@ const startEditing = () => {
 const save = async () => {
     if (data.type !== 'resolved') return
     isSaving.value = true
-    // we don't watch to patch id
-    const { id, ...newData } = data.value
-    await fetch(`${apiUrl}/deposits/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(newData)
-    }).then(res => res.json())
+
+    const { id, ...payload } = data.value
+    depositsApi.patch(id, payload)
 
     isSaving.value = false
     editMode.value = false
@@ -52,9 +43,7 @@ const removeDeposit = async () => {
 
     const id = data.value.id
 
-    await fetch(`${apiUrl}/deposits/${id}`, {
-        method: 'DELETE',
-    }).then(res => res.json())
+    await depositsApi.delete(id)
 
     await router.push({ path: '/' })
 }

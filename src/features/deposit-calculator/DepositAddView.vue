@@ -1,31 +1,24 @@
 <script setup lang="ts">
+import AppButton from '@/shared/components/AppButton.vue';
 import Container from '@/shared/components/Container.vue';
-import { apiUrl } from '@/shared/const/apiUrl';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { depositsApi } from '../api/depositsApi';
 import DepositCalculator from './components/DepositCalculator.vue';
 import { depositInit } from './utils/depositInit';
-import { useRouter } from 'vue-router';
-import AppButton from '@/shared/components/AppButton.vue';
 
 const router = useRouter()
 
 const loading = ref(false)
 
 const data = reactive<DepositDto>(depositInit('adding'))
-
-const fetchAddDeposit = async () => {
-    const result: DepositDto = await fetch(`${apiUrl}/deposits`, {
-        method: 'POST',
-        body: JSON.stringify(data)
-    }).then(res => res.json())
-
-    await router.push({ path: `/lokaty/${result.id}` })
-}
-
 const addDeposit = async () => {
     loading.value = true
-    await fetchAddDeposit()
+
+    const response = await depositsApi.post(data)
+    await router.push({ path: `/lokaty/${response.id}` })
+
     loading.value = false
 }
 

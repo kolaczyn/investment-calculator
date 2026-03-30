@@ -1,7 +1,7 @@
 export type FetchInfo<T> =
   | {
       type: "error";
-      value: string;
+      value: string | null;
     }
   | {
       type: "loading";
