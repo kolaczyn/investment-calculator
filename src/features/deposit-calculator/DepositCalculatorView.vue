@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Container from '@/shared/components/Container.vue';
-import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
-import { depositInit } from './const/depositInit';
+import DepositCalculator from './components/DepositCalculator.vue';
+import { depositInit } from './utils/depositInit';
 
 const data = depositInit('example')
 </script>
@@ -9,6 +9,6 @@ const data = depositInit('example')
 <template>
     <Container>
         <h1 class="text-2xl">Kalkulator lokat</h1>
-        <TimedDepositCalculator :data="data" view-mode="calculator" />
+        <DepositCalculator :data="data" view-mode="calculator" />
     </Container>
 </template>

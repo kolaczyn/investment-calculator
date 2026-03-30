@@ -3,13 +3,13 @@ import AppLink from '@/shared/components/AppLink.vue';
 import Card from '@/shared/components/Card.vue';
 import Container from '@/shared/components/Container.vue';
 import { apiUrl } from '@/shared/const/apiUrl';
-import type { TimedDeposit } from '@/shared/types/TimedDeposit';
+import type { DepositDto } from '@/shared/types/DepositDto';
 import { computed, onMounted, ref } from 'vue';
-import { getDepositGains } from '../timed-deposit-calculator/utils/getDepositGains';
+import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { pluralsMonths } from '@/shared/utils/plurals';
 
-const data = ref<TimedDeposit[] | null>(null)
+const data = ref<DepositDto[] | null>(null)
 
 const dataMapped = computed(() => data.value?.map(d => ({
     base: d,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppInput from '@/shared/components/AppInput.vue';
 import Card from '@/shared/components/Card.vue';
-import type { TimedDeposit } from '@/shared/types/TimedDeposit';
+import type { DepositDto } from '@/shared/types/DepositDto';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { formatDate } from '@/shared/utils/formatDate';
 import { pluralsDays } from '@/shared/utils/plurals';
@@ -10,7 +10,7 @@ import type { ViewMode } from '../types';
 import { getDepositEndDate } from '../utils/getDepositEndDate';
 import { getDepositGains } from '../utils/getDepositGains';
 
-const { data, viewMode } = defineProps<{ data: TimedDeposit, viewMode: ViewMode, }>()
+const { data, viewMode } = defineProps<{ data: DepositDto, viewMode: ViewMode, }>()
 
 const disableInputs = computed(() => viewMode === 'viewing' || viewMode === 'loading')
 

@@ -1,5 +1,5 @@
-import type { TimedDeposit } from "./TimedDeposit";
+import type { DepositDto } from "./DepositDto";
 
 export type FullData = {
-  deposits: TimedDeposit[];
+  deposits: DepositDto[];
 };

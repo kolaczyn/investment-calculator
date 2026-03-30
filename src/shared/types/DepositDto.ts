@@ -1,4 +1,4 @@
-export type TimedDeposit = {
+export type DepositDto = {
   id: string;
   amount: number;
   // in percent (e.g. 2 means 2%)

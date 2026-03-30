@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Container from '@/shared/components/Container.vue';
 import { apiUrl } from '@/shared/const/apiUrl';
-import type { TimedDeposit } from '@/shared/types/TimedDeposit';
+import type { DepositDto } from '@/shared/types/DepositDto';
 import { reactive, ref } from 'vue';
-import TimedDepositCalculator from './components/TimedDepositCalculator.vue';
-import { depositInit } from './const/depositInit';
+import DepositCalculator from './components/DepositCalculator.vue';
+import { depositInit } from './utils/depositInit';
 import { useRouter } from 'vue-router';
 import AppButton from '@/shared/components/AppButton.vue';
 
@@ -12,10 +12,10 @@ const router = useRouter()
 
 const loading = ref(false)
 
-const data = reactive<TimedDeposit>(depositInit('adding'))
+const data = reactive<DepositDto>(depositInit('adding'))
 
 const fetchAddDeposit = async () => {
-    const result: TimedDeposit = await fetch(`${apiUrl}/deposits`, {
+    const result: DepositDto = await fetch(`${apiUrl}/deposits`, {
         method: 'POST',
         body: JSON.stringify(data)
     }).then(res => res.json())
@@ -34,12 +34,12 @@ const addDeposit = async () => {
 <template>
     <Container>
         <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
-        <TimedDepositCalculator :data="data" :view-mode="loading ? 'loading' : 'editing'">
+        <DepositCalculator :data="data" :view-mode="loading ? 'loading' : 'editing'">
             <template v-slot:action>
                 <AppButton @click="addDeposit">
                     Dodaj lokatę
                 </AppButton>
             </template>
-        </TimedDepositCalculator>
+        </DepositCalculator>
     </Container>
 </template>
