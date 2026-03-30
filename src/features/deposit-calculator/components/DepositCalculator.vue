@@ -8,9 +8,7 @@ import { validateDepositForm } from '../utils/validateDepositForm';
 
 const { data, disableInputs = false } = defineProps<{ data: DepositDto, disableInputs?: boolean, }>()
 
-const errors = computed(() => (validateDepositForm(data)))
-
-const isFormValid = computed(() => !Object.values(errors.value).some(x => x != null))
+const formValidation = computed(() => validateDepositForm(data))
 
 </script>
 
@@ -21,16 +19,17 @@ const isFormValid = computed(() => !Object.values(errors.value).some(x => x != n
         </template>
 
         <AppInput label="Depozyt (zł)" id="amount" type="number" v-model.number="data.amount" :disabled="disableInputs"
-            :error="errors.amount" />
+            :error="formValidation.fields.amount" />
 
         <AppInput label="Data założenia lokaty" id="start-date" type="date" v-model="data.startDate"
-            :disabled="disableInputs" :error="errors.startDate" />
+            :disabled="disableInputs" :error="formValidation.fields.startDate" />
 
         <AppInput label="Oprocentowanie w skali roku (w procentach)" id="annual-interest" type="number"
-            v-model.number="data.interest" step="0.5" :disabled="disableInputs" :error="errors.interest" min="0" />
+            v-model.number="data.interest" step="0.5" :disabled="disableInputs" :error="formValidation.fields.interest"
+            min="0" />
 
         <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="data.periodMonths"
-            :disabled="disableInputs" :error="errors.periodMonths" min="1" />
+            :disabled="disableInputs" :error="formValidation.fields.periodMonths" min="1" />
 
         <template v-slot:footer>
             <slot name="action"></slot>
@@ -41,7 +40,7 @@ const isFormValid = computed(() => !Object.values(errors.value).some(x => x != n
         <template v-slot:header>
             <h2 class="text-xl">Wyniki</h2>
         </template>
-        <DepositResults v-if="isFormValid" :deposit="data" />
+        <DepositResults v-if="formValidation.isValid" :deposit="data" />
         <div v-else>
             W formularzu są błędy.
         </div>
