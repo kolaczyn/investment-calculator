@@ -17,7 +17,7 @@ const disableInputs = computed(() => viewMode === 'viewing' || viewMode === 'loa
 const errors = computed(() => ({
     amount: data.amount < 1000 ? 'Minimalna kwota to 1000 zł' : null,
     startDate: null,
-    annualInterest: data.annualInterest <= 0 ? 'Oprocentowanie musi być dodatnie' : null,
+    interest: data.interest <= 0 ? 'Oprocentowanie musi być dodatnie' : null,
     periodMonths: data.periodMonths <= 0 ? 'Miesiące muszą być dodatnie' : null
 }))
 
@@ -26,7 +26,7 @@ const isFormValid = computed(() => !Object.values(errors.value).some(x => x != n
 const depositEndDate = computed(() => getDepositEndDate(new Date(data.startDate), data.periodMonths))
 
 const amountAfterEnd = computed(() => getDepositGains({
-    annualGain: data.annualInterest / 100,
+    interest: data.interest / 100,
     amount: data.amount,
     periodMonths: data.periodMonths,
     startDate: new Date(data.startDate)
@@ -46,8 +46,7 @@ const amountAfterEnd = computed(() => getDepositGains({
             :disabled="disableInputs" :error="errors.startDate" />
 
         <AppInput label="Oprocentowanie w skali roku (w procentach)" id="annual-interest" type="number"
-            v-model.number="data.annualInterest" step="0.5" :disabled="disableInputs" :error="errors.annualInterest"
-            min="0" />
+            v-model.number="data.interest" step="0.5" :disabled="disableInputs" :error="errors.interest" min="0" />
 
         <AppInput label="Okres czasu (w miesiącach)" id="period-months" type="number" v-model.number="data.periodMonths"
             :disabled="disableInputs" :error="errors.periodMonths" min="1" />

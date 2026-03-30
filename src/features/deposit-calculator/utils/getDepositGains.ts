@@ -7,13 +7,13 @@ type Args = {
   amount: number;
   startDate: Date;
   periodMonths: number;
-  annualGain: number;
+  interest: number;
 };
 
-export const getDepositGains = ({ amount, startDate, periodMonths, annualGain }: Args) => {
+export const getDepositGains = ({ amount, startDate, periodMonths, interest }: Args) => {
   const endDate = getDepositEndDate(startDate, periodMonths);
   const totalDays = dateDiffInDays(startDate, endDate);
-  const percantageDuringDays = annualGain * (totalDays / daysInYear);
+  const percantageDuringDays = interest * (totalDays / daysInYear);
 
   const grossGain = roundCurrency(amount * percantageDuringDays);
   const taxes = getCapitalGainsTax(grossGain);

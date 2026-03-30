@@ -44,9 +44,14 @@ const testCases = [
 describe("getDepositGains", () => {
   test.each(testCases)(
     `getDepositGains $i`,
-    (capital, startDate, periodMonths, annualGain, expected) => {
+    (capital, startDate, periodMonths, interest, expected) => {
       expect(
-        getDepositGains({ amount: capital, startDate, periodMonths, annualGain }),
+        getDepositGains({
+          amount: capital,
+          startDate,
+          periodMonths,
+          interest: interest,
+        }),
       ).toMatchObject(expected);
     },
   );

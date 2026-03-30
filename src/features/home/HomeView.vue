@@ -17,7 +17,7 @@ const dataMapped = computed(() => data.value?.map(d => ({
         ...d,
         startDate: new Date(d.startDate),
         // TODO make the names consistant
-        annualGain: d.annualInterest / 100
+        interest: d.interest / 100
     })
 })) ?? null)
 
@@ -53,7 +53,7 @@ onMounted(() => {
                     <li v-for="{ base: d, gains: g } in dataMapped" :key="d.id">
                         <AppLink :to="`/lokaty/${d.id}`"
                             :title="`Zyski: brutto - ${formatCurrency(g.grossGain)}., netto - ${formatCurrency(g.netGain)}`">
-                            {{ formatCurrency(d.amount) }}, {{ d.annualInterest }}%, {{ d.periodMonths }} {{
+                            {{ formatCurrency(d.amount) }}, {{ d.interest }}%, {{ d.periodMonths }} {{
                                 pluralsMonths(d.periodMonths) }},
                             od {{
                                 (d.startDate)
