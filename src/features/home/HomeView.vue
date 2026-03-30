@@ -5,7 +5,7 @@ import Container from '@/shared/components/Container.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { computed, onMounted, ref } from 'vue';
-import { depositsApi } from '../api/depositsApi';
+import { depositsApi } from '@/shared/api/depositsApi';
 import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
 import DepositSummary from './components/DepositSummary.vue';
 import type { DepositFullInfo } from './types/DepositFullInfo';

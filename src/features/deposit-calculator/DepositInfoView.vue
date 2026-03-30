@@ -5,7 +5,7 @@ import type { DepositDto } from '@/shared/types/DepositDto';
 import type { FetchInfo } from '@/shared/types/FetchInfo';
 import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { depositsApi } from '../api/depositsApi';
+import { depositsApi } from '@/shared/api/depositsApi';
 import DepositCalculator from './components/DepositCalculator.vue';
 
 const route = useRoute()

@@ -4,7 +4,7 @@ import Container from '@/shared/components/Container.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { depositsApi } from '../api/depositsApi';
+import { depositsApi } from '@/shared/api/depositsApi';
 import DepositCalculator from './components/DepositCalculator.vue';
 import { depositInit } from './utils/depositInit';
 
