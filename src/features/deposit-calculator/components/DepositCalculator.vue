@@ -2,13 +2,9 @@
 import AppInput from '@/shared/components/AppInput.vue';
 import Card from '@/shared/components/Card.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
-import { formatCurrency } from '@/shared/utils/formatCurrency';
-import { formatDate } from '@/shared/utils/formatDate';
-import { pluralsDays } from '@/shared/utils/plurals';
 import { computed } from 'vue';
 import type { ViewMode } from '../types';
-import { getDepositEndDate } from '../utils/getDepositEndDate';
-import { getDepositGains } from '../utils/getDepositGains';
+import DepositResults from './DepositResults.vue';
 
 const { data, viewMode } = defineProps<{ data: DepositDto, viewMode: ViewMode, }>()
 
@@ -23,14 +19,6 @@ const errors = computed(() => ({
 
 const isFormValid = computed(() => !Object.values(errors.value).some(x => x != null))
 
-const depositEndDate = computed(() => getDepositEndDate(new Date(data.startDate), data.periodMonths))
-
-const amountAfterEnd = computed(() => getDepositGains({
-    interest: data.interest / 100,
-    amount: data.amount,
-    periodMonths: data.periodMonths,
-    startDate: new Date(data.startDate)
-}))
 </script>
 
 <template>
@@ -60,19 +48,7 @@ const amountAfterEnd = computed(() => getDepositGains({
         <template v-slot:header>
             <h2 class="text-xl">Wyniki</h2>
         </template>
-        <ul class="list-disc list-inside" v-if="isFormValid">
-            <li>
-                Kończy się - {{ formatDate(depositEndDate) }} (pozostało {{ amountAfterEnd.daysRemaining }} z {{
-                    amountAfterEnd.totalDays }} {{
-                    pluralsDays(amountAfterEnd.totalDays) }})
-            </li>
-            <li>Aktualny zysk netto - {{ formatCurrency(amountAfterEnd.currentNetGain) }}</li>
-            <li>Aktualny zysk brutto - {{ formatCurrency(amountAfterEnd.currentGrossGain) }}</li>
-            <li>Podatki - {{ formatCurrency(amountAfterEnd.taxes) }}</li>
-            <li>Zysk netto - {{ formatCurrency(amountAfterEnd.netGain) }}</li>
-            <li>Zysk brutto - {{ formatCurrency(amountAfterEnd.grossGain) }}</li>
-            <li>Depozyt - {{ formatCurrency(data.amount) }}</li>
-        </ul>
+        <DepositResults v-if="isFormValid" :deposit="data" />
         <div v-else>
             W formularzu są błędy.
         </div>
