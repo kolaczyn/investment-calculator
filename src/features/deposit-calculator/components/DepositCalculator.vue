@@ -4,15 +4,11 @@ import Card from '@/shared/components/Card.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { computed } from 'vue';
 import DepositResults from './DepositResults.vue';
+import { validateDepositForm } from '../utils/validateDepositForm';
 
 const { data, disableInputs = false } = defineProps<{ data: DepositDto, disableInputs?: boolean, }>()
 
-const errors = computed(() => ({
-    amount: data.amount < 1000 ? 'Minimalna kwota to 1000 zł' : null,
-    startDate: null,
-    interest: data.interest <= 0 ? 'Oprocentowanie musi być dodatnie' : null,
-    periodMonths: data.periodMonths <= 0 ? 'Miesiące muszą być dodatnie' : null
-}))
+const errors = computed(() => (validateDepositForm(data)))
 
 const isFormValid = computed(() => !Object.values(errors.value).some(x => x != null))
 
