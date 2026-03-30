@@ -8,6 +8,7 @@ import AppLink from '@/shared/components/AppLink.vue';
             <nav class="flex gap-4">
                 <AppLink to="/">Strona Główna</AppLink>
                 <AppLink to="/kalkulator/lokata">Kalkulator Lokat</AppLink>
+                <AppLink to="/kalkulator/obligacje">Kalkulator Obligacji</AppLink>
             </nav>
         </div>
     </header>
