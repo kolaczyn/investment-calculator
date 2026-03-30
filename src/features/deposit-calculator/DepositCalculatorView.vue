@@ -9,6 +9,6 @@ const data = depositInit('example')
 <template>
     <Container>
         <h1 class="text-2xl">Kalkulator lokat</h1>
-        <DepositCalculator :data="data" view-mode="calculator" />
+        <DepositCalculator :data="data" :disable-inputs="false" />
     </Container>
 </template>

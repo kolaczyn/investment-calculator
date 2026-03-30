@@ -56,7 +56,7 @@ watch(() => route.params.id as string, id => fetchData(id), { immediate: true })
         <Container>
             <template v-if="data.type === 'resolved'">
                 <h1 class="text-2xl">Dane o lokacie</h1>
-                <DepositCalculator :data="data.value" :view-mode="editMode ? 'editing' : 'viewing'">
+                <DepositCalculator :data="data.value" :disable-inputs="!editMode">
                     <template v-slot:action>
                         <AppButton v-if="editMode" type="primary" @click="save" :disabled="isSaving">
                             Zapisz

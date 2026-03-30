@@ -4,13 +4,12 @@ import Card from '@/shared/components/Card.vue';
 import Container from '@/shared/components/Container.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
-import { pluralsMonths } from '@/shared/utils/plurals';
 import { computed, onMounted, ref } from 'vue';
 import { depositsApi } from '../api/depositsApi';
 import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
-import type { HomeDepositStats } from './types/HomeDepositStats';
-import type { DepositFullInfo } from './types/DepositFullInfo';
 import DepositSummary from './components/DepositSummary.vue';
+import type { DepositFullInfo } from './types/DepositFullInfo';
+import type { HomeDepositStats } from './types/HomeDepositStats';
 
 const depositsArr = ref<DepositDto[] | null>(null)
 

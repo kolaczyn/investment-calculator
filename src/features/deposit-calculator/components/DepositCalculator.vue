@@ -3,12 +3,9 @@ import AppInput from '@/shared/components/AppInput.vue';
 import Card from '@/shared/components/Card.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { computed } from 'vue';
-import type { ViewMode } from '../types';
 import DepositResults from './DepositResults.vue';
 
-const { data, viewMode } = defineProps<{ data: DepositDto, viewMode: ViewMode, }>()
-
-const disableInputs = computed(() => viewMode === 'viewing' || viewMode === 'loading')
+const { data, disableInputs = false } = defineProps<{ data: DepositDto, disableInputs?: boolean, }>()
 
 const errors = computed(() => ({
     amount: data.amount < 1000 ? 'Minimalna kwota to 1000 zł' : null,
