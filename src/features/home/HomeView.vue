@@ -10,6 +10,8 @@ import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
 import DepositSummary from './components/DepositSummary.vue';
 import type { DepositFullInfo } from './types/DepositFullInfo';
 import type { HomeDepositStats } from './types/HomeDepositStats';
+import { collection, getDocs } from 'firebase/firestore/lite'
+import { db } from "@/shared/api/firebaseApp.ts";
 
 const depositsArr = ref<DepositDto[] | null>(null)
 
@@ -28,10 +30,22 @@ const stats = computed(() => depositsFullInfo.value?.reduce<HomeDepositStats>((a
     net: acc.net + curr.results.profitsProjected.net,
 }), { capital: 0, gross: 0, net: 0 }))
 
+const getCities = async () => {
+  const citiesCol = collection(db, 'cities');
+  const citySnapshot = await getDocs(citiesCol);
+
+  const cityList = citySnapshot.docs.map(doc => doc.data());
+  return cityList;
+}
+
 onMounted(async () => {
     const response = await depositsApi.getAll()
     depositsArr.value = response
+
+    const cities = await getCities()
+    console.log(cities)
 })
+
 </script>
 
 <template>
