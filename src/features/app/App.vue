@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { firebaseAuth, googleAuthProvider } from "@/shared/api/firebaseAuth.ts";
-import AppButton from "@/shared/components/AppButton.vue";
-import AppContainer from '@/shared/components/AppContainer.vue';
-import AppHeader from '@/shared/components/AppHeader.vue';
-import { signInWithPopup } from "firebase/auth";
-import { ref } from "vue";
-import { RouterView } from 'vue-router';
+import { firebaseAuth, googleAuthProvider } from '@/shared/api/firebaseAuth.ts'
+import AppButton from '@/shared/components/AppButton.vue'
+import AppContainer from '@/shared/components/AppContainer.vue'
+import AppHeader from '@/shared/components/AppHeader.vue'
+import { signInWithPopup } from 'firebase/auth'
+import { ref } from 'vue'
+import { RouterView } from 'vue-router'
 
-const loggedStatus = ref<'fetching' | 'not-logged' | 'logged'>("fetching")
+const loggedStatus = ref<'fetching' | 'not-logged' | 'logged'>('fetching')
 const userEmail = ref<string | null>(null)
 
-firebaseAuth.onAuthStateChanged(user => {
+firebaseAuth.onAuthStateChanged((user) => {
   loggedStatus.value = user ? 'logged' : 'not-logged'
   userEmail.value = user?.email ?? null
 })
@@ -27,7 +27,6 @@ const signIn = () => {
     <AppContainer v-else-if="loggedStatus === 'not-logged'">
       <AppButton @click="signIn">Zaloguj się</AppButton>
     </AppContainer>
-    <AppContainer v-else-if="loggedStatus === 'fetching'">
-    </AppContainer>
+    <AppContainer v-else-if="loggedStatus === 'fetching'"> </AppContainer>
   </div>
 </template>
