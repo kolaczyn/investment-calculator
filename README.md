@@ -54,3 +54,8 @@ EDO0135/1 - EDOmmyy/d
 ## Todosy
 
 - Kapitalizacja odsetek w lokacie
+
+## Inne
+
+- Korzystam z `bun`, ale wywala się skrypt ze sprawdzaniem typów `type-check`, więc na razie z niego nie korzystam :c
+  - link do issue https://github.com/oven-sh/bun/issues/4754
