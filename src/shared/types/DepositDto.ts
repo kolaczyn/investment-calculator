@@ -8,8 +8,9 @@ export type DepositDto = {
   startDate: string;
 };
 
+export type FirebaseDepositCreateDto = FirebaseDepositDto & { userId: number };
+
 export type FirebaseDepositDto = {
-  userId: string
   amount: number;
   // in percent (e.g. 2 means 2%)
   interest: number;

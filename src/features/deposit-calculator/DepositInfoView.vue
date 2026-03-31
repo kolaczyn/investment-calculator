@@ -1,23 +1,33 @@
 <script setup lang="ts">
 import AppButton from '@/shared/components/AppButton.vue';
 import Container from '@/shared/components/Container.vue';
-import type { DepositDto } from '@/shared/types/DepositDto';
+import type { DepositDto, FirebaseDepositDto } from '@/shared/types/DepositDto';
 import type { FetchInfo } from '@/shared/types/FetchInfo';
 import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { depositsApi } from '@/shared/api/depositsApi';
 import DepositCalculator from './components/DepositCalculator.vue';
+import { getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { db } from "@/shared/api/firebaseApp.ts";
 
 const route = useRoute()
 const router = useRouter()
 const data = reactive<FetchInfo<DepositDto>>({ type: 'loading', value: null })
 const editMode = ref(false)
 const isSaving = ref(false)
+const idRef = ref<string | null>(null)
+
+const docRef = (id: string) => doc(db, 'deposits', id)
 
 const fetchData = async (id: string) => {
-    const result = await depositsApi.getById(id)
-    data.type = result.type
-    data.value = result.value
+  try {
+    const result = await getDoc(docRef(id))
+    data.type = 'resolved'
+    data.value = result.data() as DepositDto
+  } catch (err) {
+    console.error(err)
+    data.type = 'error'
+    data.value = null
+  }
 }
 
 const startEditing = () => {
@@ -28,8 +38,14 @@ const save = async () => {
     if (data.type !== 'resolved') return
     isSaving.value = true
 
-    const { id, ...payload } = data.value
-    depositsApi.patch(id, payload)
+    const payload: FirebaseDepositDto = {
+      amount: data.value.amount,
+      interest: data.value.interest,
+      periodMonths: data.value.periodMonths,
+      startDate: data.value.startDate,
+    }
+
+    await updateDoc(docRef(idRef.value!), payload)
 
     isSaving.value = false
     editMode.value = false
@@ -41,14 +57,15 @@ const removeDeposit = async () => {
     const confirmation = window.confirm('Czy na pewno chcesz usunąć informacje o tej lokacie?')
     if (!confirmation) return
 
-    const id = data.value.id
-
-    await depositsApi.delete(id)
+    await deleteDoc(docRef(idRef.value!))
 
     await router.push({ path: '/' })
 }
 
-watch(() => route.params.id as string, id => fetchData(id), { immediate: true })
+watch(() => route.params.id as string, id => {
+  idRef.value = id
+  fetchData(id);
+}, {immediate: true})
 </script>
 
 <template>

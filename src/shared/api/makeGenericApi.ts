@@ -1,13 +1,12 @@
 import { apiUrl } from "@/shared/const/apiUrl";
-import type { DepositDto } from "@/shared/types/DepositDto";
 import type { FetchInfo } from "@/shared/types/FetchInfo";
 
 type GenericApi<TData extends { id: string }> = {
   getAll: () => Promise<TData[]>;
   getById: (id: string) => Promise<FetchInfo<TData>>;
-  post: (payload: TData) => Promise<DepositDto>;
+  post: (payload: TData) => Promise<TData>;
   patch: (id: string, payload: Partial<Omit<TData, "id">>) => Promise<TData>;
-  delete: (id: string) => Promise<DepositDto>;
+  delete: (id: string) => Promise<TData>;
 };
 
 export const makeGenericApi = <TData extends { id: string }>(

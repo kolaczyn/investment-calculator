@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import AppButton from '@/shared/components/AppButton.vue';
 import Container from '@/shared/components/Container.vue';
-import type {DepositDto, FirebaseDepositDto} from '@/shared/types/DepositDto';
+import type {
+  DepositDto,
+  FirebaseDepositCreateDto,
+} from '@/shared/types/DepositDto';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { addDoc, collection } from 'firebase/firestore'
@@ -19,7 +22,7 @@ const addDeposit = async () => {
     loading.value = true
     const user = firebaseAuth.currentUser
 
-    const payload: FirebaseDepositDto = {
+    const payload: FirebaseDepositCreateDto = {
       amount: data.amount,
       interest: data.interest,
       periodMonths: data.periodMonths,
