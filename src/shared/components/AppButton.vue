@@ -2,11 +2,11 @@
 const {
   type = 'primary',
   disabled = false,
-  className = '',
+  class: className = '',
 } = defineProps<{
   type?: 'primary' | 'danger'
   disabled?: boolean
-  className?: string
+  class?: string
 }>()
 
 defineEmits(['click'])

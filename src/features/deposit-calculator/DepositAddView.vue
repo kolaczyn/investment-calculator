@@ -39,7 +39,7 @@ const addDeposit = async () => {
     <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
     <DepositCalculator :data="data" :disable-inputs="loading">
       <template v-slot:action>
-        <AppButton @click="addDeposit"> Dodaj lokatę </AppButton>
+        <AppButton @click="addDeposit">Dodaj lokatę</AppButton>
       </template>
     </DepositCalculator>
   </AppContainer>
