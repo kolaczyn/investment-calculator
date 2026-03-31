@@ -5,12 +5,13 @@ Pliz, nie bierzcie tego projektu poważnie w celu podjęcia decyzji finansowej, 
 ## Setup
 
 1. Trzeba mieć zainstalowany bun
-2. Trzeba mieć konto na firebase, firebase cli oraz być zalogowanym w cli
+2. Trzeba mieć konto na Firebase, firebase cli oraz być zalogowanym w cli
 3. Uruchom `firebase deploy`
 4. Uzupełnij zmienne w pliku `.env` zgodnie z listą w pliku `src/shared/env.ts`
-5. Uruchom `cp db.example.json example.json`
-6. Uruchom `bun backend` w pierwszym terminalu
-7. Uruchom `bun dev` w drugim terminalu
+5. W Firebase, w Authentication > Settings > Authorized Domain trzeba dodać do listy "localhost"
+6. Uruchom `cp db.example.json example.json`
+7. Uruchom `bun backend` w pierwszym terminalu
+8. Uruchom `bun dev` w drugim terminalu
 
 ## Notes informacji jak działają instrumenty finansowe
 
