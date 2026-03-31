@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppInput from '@/shared/components/AppInput.vue';
-import Card from '@/shared/components/Card.vue';
+import AppCard from '@/shared/components/AppCard.vue';
 import type { DepositDto } from '@/shared/types/DepositDto';
 import { computed } from 'vue';
 import DepositResults from './DepositResults.vue';
@@ -13,7 +13,7 @@ const formValidation = computed(() => validateDepositForm(data))
 </script>
 
 <template>
-    <Card class="grid gap-0.5 my-4">
+    <AppCard class="grid gap-0.5 my-4">
         <template v-slot:header>
             <h2 class="text-xl">Parametry</h2>
         </template>
@@ -34,9 +34,9 @@ const formValidation = computed(() => validateDepositForm(data))
         <template v-slot:footer>
             <slot name="action"></slot>
         </template>
-    </Card>
+    </AppCard>
 
-    <Card>
+    <AppCard>
         <template v-slot:header>
             <h2 class="text-xl">Wyniki</h2>
         </template>
@@ -44,5 +44,5 @@ const formValidation = computed(() => validateDepositForm(data))
         <div v-else>
             W formularzu są błędy.
         </div>
-    </Card>
+    </AppCard>
 </template>

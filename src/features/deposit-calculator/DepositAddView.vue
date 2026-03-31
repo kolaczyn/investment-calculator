@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import AppButton from '@/shared/components/AppButton.vue';
-import Container from '@/shared/components/Container.vue';
-import type {
-  DepositDto,
-  FirebaseDepositCreateDto,
-} from '@/shared/types/DepositDto';
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { addDoc, collection } from 'firebase/firestore'
-import DepositCalculator from './components/DepositCalculator.vue';
-import { depositInit } from './utils/depositInit';
 import { db } from "@/shared/api/firebaseApp.ts";
 import { firebaseAuth } from "@/shared/api/firebaseAuth.ts";
+import AppButton from '@/shared/components/AppButton.vue';
+import AppContainer from '@/shared/components/AppContainer.vue';
+import type {
+    DepositDto,
+    FirebaseDepositCreateDto,
+} from '@/shared/types/DepositDto';
+import { addDoc, collection } from 'firebase/firestore';
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import DepositCalculator from './components/DepositCalculator.vue';
+import { depositInit } from './utils/depositInit';
 
 const router = useRouter()
 
@@ -23,11 +23,11 @@ const addDeposit = async () => {
     const user = firebaseAuth.currentUser
 
     const payload: FirebaseDepositCreateDto = {
-      amount: data.amount,
-      interest: data.interest,
-      periodMonths: data.periodMonths,
-      startDate: data.startDate,
-      userId: user!.uid
+        amount: data.amount,
+        interest: data.interest,
+        periodMonths: data.periodMonths,
+        startDate: data.startDate,
+        userId: user!.uid
     }
 
     const response = await addDoc(collection(db, "deposits"), payload)
@@ -39,7 +39,7 @@ const addDeposit = async () => {
 </script>
 
 <template>
-    <Container>
+    <AppContainer>
         <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
         <DepositCalculator :data="data" :disable-inputs="loading">
             <template v-slot:action>
@@ -48,5 +48,5 @@ const addDeposit = async () => {
                 </AppButton>
             </template>
         </DepositCalculator>
-    </Container>
+    </AppContainer>
 </template>

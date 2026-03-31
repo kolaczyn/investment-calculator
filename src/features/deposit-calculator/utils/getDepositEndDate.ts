@@ -1,5 +1,5 @@
 // taken from https://stackoverflow.com/a/16353241
-const isLeapYear = (year: number) => (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+const isLeapYear = (year: number) => (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 
 export const monthsIndexes = {
   january: 0,
@@ -14,7 +14,7 @@ export const monthsIndexes = {
   october: 9,
   november: 10,
   december: 11,
-};
+}
 
 const getMonthsLength = (year: number) => [
   // january
@@ -41,25 +41,25 @@ const getMonthsLength = (year: number) => [
   30,
   // december
   31,
-];
+]
 
 export const getDepositEndDate = (startDate: Date, periodMonths: number) => {
-  const currentMonth = startDate.getMonth();
-  const endMonth = currentMonth + periodMonths;
-  const isNextYear = endMonth >= 11;
-  const endYear = startDate.getFullYear() + (isNextYear ? 1 : 0);
-  const endMonthTrimmed = endMonth % 12;
+  const currentMonth = startDate.getMonth()
+  const endMonth = currentMonth + periodMonths
+  const isNextYear = endMonth >= 11
+  const endYear = startDate.getFullYear() + (isNextYear ? 1 : 0)
+  const endMonthTrimmed = endMonth % 12
 
-  const monthsLength = getMonthsLength(endYear);
+  const monthsLength = getMonthsLength(endYear)
 
-  const endMonthDays = monthsLength[endMonthTrimmed];
+  const endMonthDays = monthsLength[endMonthTrimmed]
 
   if (endMonthDays == null) {
     // This is probably impossible to achieve
-    throw new Error("month length out of scope");
+    throw new Error('month length out of scope')
   }
 
-  const endDateOfMonth = Math.min(startDate.getDate(), endMonthDays);
+  const endDateOfMonth = Math.min(startDate.getDate(), endMonthDays)
 
-  return new Date(endYear, endMonthTrimmed, endDateOfMonth);
-};
+  return new Date(endYear, endMonthTrimmed, endDateOfMonth)
+}

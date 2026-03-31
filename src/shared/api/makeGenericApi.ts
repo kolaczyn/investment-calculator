@@ -1,13 +1,13 @@
-import { apiUrl } from "@/shared/const/apiUrl";
-import type { FetchInfo } from "@/shared/types/FetchInfo";
+import { apiUrl } from '@/shared/const/apiUrl'
+import type { FetchInfo } from '@/shared/types/FetchInfo'
 
 type GenericApi<TData extends { id: string }> = {
-  getAll: () => Promise<TData[]>;
-  getById: (id: string) => Promise<FetchInfo<TData>>;
-  post: (payload: TData) => Promise<TData>;
-  patch: (id: string, payload: Partial<Omit<TData, "id">>) => Promise<TData>;
-  delete: (id: string) => Promise<TData>;
-};
+  getAll: () => Promise<TData[]>
+  getById: (id: string) => Promise<FetchInfo<TData>>
+  post: (payload: TData) => Promise<TData>
+  patch: (id: string, payload: Partial<Omit<TData, 'id'>>) => Promise<TData>
+  delete: (id: string) => Promise<TData>
+}
 
 export const makeGenericApi = <TData extends { id: string }>(
   resource: string,
@@ -20,29 +20,29 @@ export const makeGenericApi = <TData extends { id: string }>(
       .then((x) =>
         x.error
           ? {
-              type: "error",
+              type: 'error',
               value: null,
             }
           : {
-              type: "resolved",
+              type: 'resolved',
               value: x,
             },
       ),
 
   post: (payload) =>
     fetch(`${apiUrl}/${resource}`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(payload),
     }).then((x) => x.json()),
 
   patch: (id, payload) =>
     fetch(`${apiUrl}/${resource}/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(payload),
     }).then((res) => res.json()),
 
   delete: (id) =>
     fetch(`${apiUrl}/${resource}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     }).then((res) => res.json()),
-});
+})

@@ -1,9 +1,9 @@
-import { describe, expect, test } from "vitest";
-import { getDepositGains, type DepositGains } from "./getDepositGains";
-import { monthsIndexes } from "./getDepositEndDate";
-import { fromPartial } from "@total-typescript/shoehorn";
+import { describe, expect, test } from 'vitest'
+import { getDepositGains, type DepositGains } from './getDepositGains'
+import { monthsIndexes } from './getDepositEndDate'
+import { fromPartial } from '@total-typescript/shoehorn'
 
-const date = new Date(2026, monthsIndexes.february, 1);
+const date = new Date(2026, monthsIndexes.february, 1)
 
 const testCases: [number, Date, number, number, DepositGains][] = [
   [
@@ -47,9 +47,9 @@ const testCases: [number, Date, number, number, DepositGains][] = [
       },
     }),
   ],
-];
+]
 
-describe("getDepositGains", () => {
+describe('getDepositGains', () => {
   test.each(testCases)(
     `getDepositGains $i`,
     (capital, startDate, periodMonths, interest, expected) => {
@@ -60,7 +60,7 @@ describe("getDepositGains", () => {
           periodMonths,
           interest: interest,
         }),
-      ).toMatchObject(expected);
+      ).toMatchObject(expected)
     },
-  );
-});
+  )
+})

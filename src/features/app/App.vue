@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import AppHeader from '@/shared/components/AppHeader.vue';
-import { RouterView } from 'vue-router';
 import { firebaseAuth, googleAuthProvider } from "@/shared/api/firebaseAuth.ts";
-import { ref } from "vue";
-import Container from "@/shared/components/Container.vue";
 import AppButton from "@/shared/components/AppButton.vue";
+import AppContainer from '@/shared/components/AppContainer.vue';
+import AppHeader from '@/shared/components/AppHeader.vue';
 import { signInWithPopup } from "firebase/auth";
+import { ref } from "vue";
+import { RouterView } from 'vue-router';
 
 const loggedStatus = ref<'fetching' | 'not-logged' | 'logged'>("fetching")
 const userEmail = ref<string | null>(null)
@@ -24,10 +24,10 @@ const signIn = () => {
   <AppHeader :user-email="userEmail" />
   <div class="py-4">
     <RouterView v-if="loggedStatus === 'logged'" />
-    <Container v-else-if="loggedStatus === 'not-logged'">
+    <AppContainer v-else-if="loggedStatus === 'not-logged'">
       <AppButton @click="signIn">Zaloguj się</AppButton>
-    </Container>
-    <Container v-else-if="loggedStatus === 'fetching'">
-    </Container>
+    </AppContainer>
+    <AppContainer v-else-if="loggedStatus === 'fetching'">
+    </AppContainer>
   </div>
 </template>

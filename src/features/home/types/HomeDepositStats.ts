@@ -1,5 +1,5 @@
 export type HomeDepositStats = {
-  capital: number;
-  gross: number;
-  net: number;
-};
+  capital: number
+  gross: number
+  net: number
+}

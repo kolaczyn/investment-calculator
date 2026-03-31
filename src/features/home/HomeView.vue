@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppLink from '@/shared/components/AppLink.vue';
-import Card from '@/shared/components/Card.vue';
-import Container from '@/shared/components/Container.vue';
-import type {DepositDto, FirebaseDepositDto} from '@/shared/types/DepositDto';
+import AppCard from '@/shared/components/AppCard.vue';
+import AppContainer from '@/shared/components/AppContainer.vue';
+import type { DepositDto, FirebaseDepositDto } from '@/shared/types/DepositDto';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { computed, onMounted, ref } from 'vue';
 import { getDepositGains } from '../deposit-calculator/utils/getDepositGains';
@@ -31,18 +31,18 @@ const stats = computed(() => depositsFullInfo.value?.reduce<HomeDepositStats>((a
 }), { capital: 0, gross: 0, net: 0 }))
 
 onMounted(async () => {
-  const userId = firebaseAuth.currentUser!.uid
-  const response = await getDocs(query(collection(db, "deposits"), where("userId", "==", userId)))
-  depositsArr.value = response.docs.map(x => ({ id: x.id, ...x.data() as FirebaseDepositDto }))
+    const userId = firebaseAuth.currentUser!.uid
+    const response = await getDocs(query(collection(db, "deposits"), where("userId", "==", userId)))
+    depositsArr.value = response.docs.map(x => ({ id: x.id, ...x.data() as FirebaseDepositDto }))
 })
 
 </script>
 
 <template>
     <main>
-        <Container>
+        <AppContainer>
             <h1 class="text-2xl">Kalkulator inwestycji</h1>
-            <Card class="my-4">
+            <AppCard class="my-4">
                 <template v-slot:header>
                     <h2 class="text-xl">Lokaty</h2>
                 </template>
@@ -59,14 +59,14 @@ onMounted(async () => {
                 <div class="mt-1">
                     <AppLink to="/lokaty/dodaj">Dodaj lokatę</AppLink>
                 </div>
-            </Card>
+            </AppCard>
 
-            <Card class="my-4">
+            <AppCard class="my-4">
                 <template v-slot:header>
                     <h2 class="text-xl">Obligacje indeksowane inflacją</h2>
                 </template>
                 <p>Brak</p>
-            </Card>
-        </Container>
+            </AppCard>
+        </AppContainer>
     </main>
 </template>

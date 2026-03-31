@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppInput from '@/shared/components/AppInput.vue';
-import Card from '@/shared/components/Card.vue';
+import AppCard from '@/shared/components/AppCard.vue';
 import type { BondDto } from '@/shared/types/BondsDto';
 
 const { data } = defineProps<{ data: BondDto }>()
@@ -16,7 +16,7 @@ const formValidation = {
 </script>
 
 <template>
-    <Card class="grid gap-0.5 my-4">
+    <AppCard class="grid gap-0.5 my-4">
         <template v-slot:header>
             <h2 class="text-xl">Parametry</h2>
         </template>
@@ -27,9 +27,9 @@ const formValidation = {
         <template v-slot:footer>
             <slot name="action"></slot>
         </template>
-    </Card>
+    </AppCard>
 
-    <Card>
+    <AppCard>
         <template v-slot:header>
             <h2 class="text-xl">Wyniki</h2>
         </template>
@@ -37,6 +37,6 @@ const formValidation = {
         <div v-else>
             W formularzu są błędy.
         </div>
-    </Card>
+    </AppCard>
 
 </template>

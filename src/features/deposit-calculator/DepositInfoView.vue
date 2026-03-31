@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/shared/components/AppButton.vue';
-import Container from '@/shared/components/Container.vue';
+import AppContainer from '@/shared/components/AppContainer.vue';
 import type { DepositDto, FirebaseDepositDto } from '@/shared/types/DepositDto';
 import type { FetchInfo } from '@/shared/types/FetchInfo';
 import { reactive, ref, watch } from 'vue';
@@ -19,15 +19,15 @@ const idRef = ref<string | null>(null)
 const docRef = (id: string) => doc(db, 'deposits', id)
 
 const fetchData = async (id: string) => {
-  try {
-    const result = await getDoc(docRef(id))
-    data.type = 'resolved'
-    data.value = result.data() as DepositDto
-  } catch (err) {
-    console.error(err)
-    data.type = 'error'
-    data.value = null
-  }
+    try {
+        const result = await getDoc(docRef(id))
+        data.type = 'resolved'
+        data.value = result.data() as DepositDto
+    } catch (err) {
+        console.error(err)
+        data.type = 'error'
+        data.value = null
+    }
 }
 
 const startEditing = () => {
@@ -39,10 +39,10 @@ const save = async () => {
     isSaving.value = true
 
     const payload: FirebaseDepositDto = {
-      amount: data.value.amount,
-      interest: data.value.interest,
-      periodMonths: data.value.periodMonths,
-      startDate: data.value.startDate,
+        amount: data.value.amount,
+        interest: data.value.interest,
+        periodMonths: data.value.periodMonths,
+        startDate: data.value.startDate,
     }
 
     await updateDoc(docRef(idRef.value!), payload)
@@ -63,14 +63,14 @@ const removeDeposit = async () => {
 }
 
 watch(() => route.params.id as string, id => {
-  idRef.value = id
-  fetchData(id);
-}, {immediate: true})
+    idRef.value = id
+    fetchData(id);
+}, { immediate: true })
 </script>
 
 <template>
     <main>
-        <Container>
+        <AppContainer>
             <template v-if="data.type === 'resolved'">
                 <h1 class="text-2xl">Dane o lokacie</h1>
                 <DepositCalculator :data="data.value" :disable-inputs="!editMode">
@@ -91,6 +91,6 @@ watch(() => route.params.id as string, id => {
                 <h1 class="text-2xl">Brak wyników</h1>
                 <p>Nie udało się znaleźć danej lokaty</p>
             </template>
-        </Container>
+        </AppContainer>
     </main>
 </template>

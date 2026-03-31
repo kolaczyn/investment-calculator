@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import AppContainer from '@/shared/components/AppContainer.vue';
 import type { BondDto } from '@/shared/types/BondsDto';
 import BondsCalculator from './components/BondsCalculator.vue';
-import Container from '@/shared/components/Container.vue';
 
 const data: BondDto = {
     id: 'example',
@@ -11,8 +11,8 @@ const data: BondDto = {
 </script>
 
 <template>
-    <Container>
+    <AppContainer>
         <h1 class="text-2xl">Kalkulator obligacji skarbu państa indeksowanych inflacją</h1>
         <BondsCalculator :data="data" />
-    </Container>
+    </AppContainer>
 </template>

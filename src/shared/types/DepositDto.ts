@@ -1,20 +1,20 @@
 export type DepositDto = {
-  id: string;
-  amount: number;
+  id: string
+  amount: number
   // in percent (e.g. 2 means 2%)
-  interest: number;
-  periodMonths: number;
+  interest: number
+  periodMonths: number
   // in yyyy-mm-dd format (e.g. 2026-02-27)
-  startDate: string;
-};
+  startDate: string
+}
 
-export type FirebaseDepositCreateDto = FirebaseDepositDto & { userId: number };
+export type FirebaseDepositCreateDto = FirebaseDepositDto & { userId: number }
 
 export type FirebaseDepositDto = {
-  amount: number;
+  amount: number
   // in percent (e.g. 2 means 2%)
-  interest: number;
-  periodMonths: number;
+  interest: number
+  periodMonths: number
   // in yyyy-mm-dd format (e.g. 2026-02-27)
-  startDate: string;
-};
+  startDate: string
+}
