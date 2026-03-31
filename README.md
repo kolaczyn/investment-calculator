@@ -4,8 +4,10 @@ Pliz, nie bierzcie tego projektu poważnie w celu podjęcia decyzji finansowej, 
 
 ## Setup
 
-Trzeba mieć zainstalowany bun. Oraz utworzyć plik db.json (pusty).
-Potem `bun backend` i w drugim terminalu `bun dev`.
+1. Trzeba mieć zainstalowany bun
+2. Uruchom `cp db.example.json example.json`
+3. Uruchom `bun backend` w pierwszym terminalu
+4. Uruchom `bun dev` w drugim terminalu
 
 ## Notes informacji jak działają instrumenty finansowe
 
