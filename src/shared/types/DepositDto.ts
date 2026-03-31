@@ -7,3 +7,13 @@ export type DepositDto = {
   // in yyyy-mm-dd format (e.g. 2026-02-27)
   startDate: string;
 };
+
+export type FirebaseDepositDto = {
+  userId: string
+  amount: number;
+  // in percent (e.g. 2 means 2%)
+  interest: number;
+  periodMonths: number;
+  // in yyyy-mm-dd format (e.g. 2026-02-27)
+  startDate: string;
+};
