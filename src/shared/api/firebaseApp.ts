@@ -15,3 +15,7 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig)
 
 export const db = getFirestore(firebaseApp)
+
+export const appCollections = {
+  deposits: 'deposits',
+} as const

@@ -7,7 +7,7 @@ import { reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import DepositCalculator from './components/DepositCalculator.vue'
 import { getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
-import { db } from '@/shared/api/firebaseApp.ts'
+import { appCollections, db } from '@/shared/api/firebaseApp.ts'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,7 +16,7 @@ const editMode = ref(false)
 const isSaving = ref(false)
 const idRef = ref<string | null>(null)
 
-const docRef = (id: string) => doc(db, 'deposits', id)
+const docRef = (id: string) => doc(db, appCollections.deposits, id)
 
 const fetchData = async (id: string) => {
   try {

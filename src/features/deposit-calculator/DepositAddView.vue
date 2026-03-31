@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { db } from '@/shared/api/firebaseApp.ts'
+import { appCollections, db } from '@/shared/api/firebaseApp.ts'
 import { firebaseAuth } from '@/shared/api/firebaseAuth.ts'
 import AppButton from '@/shared/components/AppButton.vue'
 import AppContainer from '@/shared/components/AppContainer.vue'
@@ -27,7 +27,7 @@ const addDeposit = async () => {
     userId: user!.uid,
   }
 
-  const response = await addDoc(collection(db, 'deposits'), payload)
+  const response = await addDoc(collection(db, appCollections.deposits), payload)
   await router.push({ path: `/lokaty/${response.id}` })
 
   loading.value = false

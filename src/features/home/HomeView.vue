@@ -10,7 +10,7 @@ import DepositSummary from './components/DepositSummary.vue'
 import type { DepositFullInfo } from './types/DepositFullInfo'
 import type { HomeDepositStats } from './types/HomeDepositStats'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '@/shared/api/firebaseApp.ts'
+import { appCollections, db } from '@/shared/api/firebaseApp.ts'
 import { firebaseAuth } from '@/shared/api/firebaseAuth.ts'
 
 const depositsArr = ref<DepositDto[] | null>(null)
@@ -40,7 +40,9 @@ const stats = computed(() =>
 
 onMounted(async () => {
   const userId = firebaseAuth.currentUser!.uid
-  const response = await getDocs(query(collection(db, 'deposits'), where('userId', '==', userId)))
+  const response = await getDocs(
+    query(collection(db, appCollections.deposits), where('userId', '==', userId)),
+  )
   depositsArr.value = response.docs.map((x) => ({ id: x.id, ...(x.data() as FirebaseDepositDto) }))
 })
 </script>

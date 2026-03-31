@@ -2,8 +2,9 @@
 import AppInput from '@/shared/components/AppInput.vue'
 import AppCard from '@/shared/components/AppCard.vue'
 import type { BondDto } from '@/shared/types/BondsDto'
+import type { Reactive } from 'vue'
 
-const { data } = defineProps<{ data: BondDto }>()
+const { data } = defineProps<{ data: Reactive<BondDto> }>()
 
 const disableInputs = false
 

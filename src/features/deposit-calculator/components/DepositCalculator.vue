@@ -2,12 +2,12 @@
 import AppCard from '@/shared/components/AppCard.vue'
 import AppInput from '@/shared/components/AppInput.vue'
 import type { DepositDto } from '@/shared/types/DepositDto'
-import { computed } from 'vue'
+import { computed, type Reactive } from 'vue'
 import { validateDepositForm } from '../utils/validateDepositForm'
 import DepositResults from './DepositResults.vue'
 
 const { data, disableInputs = false } = defineProps<{
-  data: DepositDto
+  data: Reactive<DepositDto>
   disableInputs?: boolean
 }>()
 
