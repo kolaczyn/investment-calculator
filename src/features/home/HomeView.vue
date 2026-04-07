@@ -12,6 +12,9 @@ import type { HomeDepositStats } from './types/HomeDepositStats';
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from "@/shared/api/firebaseApp.ts";
 import { firebaseAuth } from "@/shared/api/firebaseAuth.ts";
+import ExampleChart, {makeExampleChart} from "@/shared/d3/ExampleChart.vue";
+import AppButton from "@/shared/components/AppButton.vue";
+import ExamplePieChart from "@/shared/d3/ExamplePieChart.vue";
 
 const depositsArr = ref<DepositDto[] | null>(null)
 
@@ -34,7 +37,14 @@ onMounted(async () => {
   const userId = firebaseAuth.currentUser!.uid
   const response = await getDocs(query(collection(db, "deposits"), where("userId", "==", userId)))
   depositsArr.value = response.docs.map(x => ({ id: x.id, ...x.data() as FirebaseDepositDto }))
+
 })
+
+const chartData = ref([10, 15, 20, 25, 30])
+const addData = () => {
+  const nextValue = (chartData.value.length + 2) * 5
+  chartData.value = [...chartData.value, nextValue];
+}
 
 </script>
 
@@ -67,6 +77,11 @@ onMounted(async () => {
                 </template>
                 <p>Brak</p>
             </Card>
+          <Card>
+            <AppButton @click="addData">Więcej danych</AppButton>
+            <ExampleChart :data="chartData" />
+            <ExamplePieChart width="500" />
+          </Card>
         </Container>
     </main>
 </template>
