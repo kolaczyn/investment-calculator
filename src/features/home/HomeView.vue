@@ -15,6 +15,7 @@ import { firebaseAuth } from "@/shared/api/firebaseAuth.ts";
 import ExampleChart, {makeExampleChart} from "@/shared/d3/ExampleChart.vue";
 import AppButton from "@/shared/components/AppButton.vue";
 import ExamplePieChart from "@/shared/d3/ExamplePieChart.vue";
+import ExampleStackedChart from "@/shared/d3/ExampleStackedChart.vue";
 
 const depositsArr = ref<DepositDto[] | null>(null)
 
@@ -79,8 +80,9 @@ const addData = () => {
             </Card>
           <Card>
             <AppButton @click="addData">Więcej danych</AppButton>
-            <ExampleChart :data="chartData" />
-            <ExamplePieChart width="500" />
+<!--            <ExampleChart :data="chartData" />-->
+<!--            <ExamplePieChart width="500" />-->
+            <ExampleStackedChart />
           </Card>
         </Container>
     </main>
