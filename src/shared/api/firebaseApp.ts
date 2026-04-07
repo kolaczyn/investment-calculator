@@ -1,9 +1,10 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+  import { initializeApp } from "firebase/app";
+import type { FirebaseOptions } from "firebase/app";
 import { envVars } from "@/shared/envVars.ts";
 import { getFirestore } from 'firebase/firestore'
 
-const firebaseConfig = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: envVars.VITE_FIREBASE_API_KEY,
   authDomain: envVars.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: envVars.VITE_FIREBASE_PROJECT_ID,
