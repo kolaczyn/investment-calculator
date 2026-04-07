@@ -1,5 +1,5 @@
-import type { DepositDto } from "@/shared/types/DepositDto";
-import { formatDate } from "@/shared/utils/formatDate";
+import type { DepositDto } from '@/shared/types/DepositDto'
+import { formatDate } from '@/shared/utils/formatDate'
 
 export const depositInit = (id: string): DepositDto => ({
   id,
@@ -7,4 +7,4 @@ export const depositInit = (id: string): DepositDto => ({
   interest: 2,
   periodMonths: 6,
   startDate: formatDate(new Date()),
-});
+})

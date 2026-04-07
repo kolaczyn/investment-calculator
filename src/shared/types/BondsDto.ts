@@ -1,4 +1,4 @@
 export type BondDto = {
-  id: string;
-  count: number;
-};
+  id: string
+  count: number
+}

@@ -2,15 +2,15 @@
 export const polishPlurals =
   (singularNominativ: string, pluralNominativ: string, pluralGenitive: string) =>
   (value: number) => {
-    value = Math.abs(value);
+    value = Math.abs(value)
     if (value === 1) {
-      return singularNominativ;
+      return singularNominativ
     } else if (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20)) {
-      return pluralNominativ;
+      return pluralNominativ
     } else {
-      return pluralGenitive;
+      return pluralGenitive
     }
-  };
+  }
 
-export const pluralsDays = polishPlurals("dzień", "dni", "dni");
-export const pluralsMonths = polishPlurals("miesiąc", "miesiące", "miesięcy");
+export const pluralsDays = polishPlurals('dzień', 'dni', 'dni')
+export const pluralsMonths = polishPlurals('miesiąc', 'miesiące', 'miesięcy')

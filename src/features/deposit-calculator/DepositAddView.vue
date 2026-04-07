@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import AppButton from '@/shared/components/AppButton.vue';
-import Container from '@/shared/components/Container.vue';
-import type {
-  DepositDto,
-  FirebaseDepositCreateDto,
-} from '@/shared/types/DepositDto';
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { appCollections, db } from '@/shared/api/firebaseApp.ts'
+import { firebaseAuth } from '@/shared/api/firebaseAuth.ts'
+import AppButton from '@/shared/components/AppButton.vue'
+import AppContainer from '@/shared/components/AppContainer.vue'
+import type { DepositDto, FirebaseDepositCreateDto } from '@/shared/types/DepositDto'
 import { addDoc, collection } from 'firebase/firestore'
-import DepositCalculator from './components/DepositCalculator.vue';
-import { depositInit } from './utils/depositInit';
-import { db } from "@/shared/api/firebaseApp.ts";
-import { firebaseAuth } from "@/shared/api/firebaseAuth.ts";
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import DepositCalculator from './components/DepositCalculator.vue'
+import { depositInit } from './utils/depositInit'
 
 const router = useRouter()
 
@@ -19,34 +16,31 @@ const loading = ref(false)
 
 const data = reactive<DepositDto>(depositInit('adding'))
 const addDeposit = async () => {
-    loading.value = true
-    const user = firebaseAuth.currentUser
+  loading.value = true
+  const user = firebaseAuth.currentUser
 
-    const payload: FirebaseDepositCreateDto = {
-      amount: data.amount,
-      interest: data.interest,
-      periodMonths: data.periodMonths,
-      startDate: data.startDate,
-      userId: user!.uid
-    }
+  const payload: FirebaseDepositCreateDto = {
+    amount: data.amount,
+    interest: data.interest,
+    periodMonths: data.periodMonths,
+    startDate: data.startDate,
+    userId: user!.uid,
+  }
 
-    const response = await addDoc(collection(db, "deposits"), payload)
-    await router.push({ path: `/lokaty/${response.id}` })
+  const response = await addDoc(collection(db, appCollections.deposits), payload)
+  await router.push({ path: `/lokaty/${response.id}` })
 
-    loading.value = false
+  loading.value = false
 }
-
 </script>
 
 <template>
-    <Container>
-        <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
-        <DepositCalculator :data="data" :disable-inputs="loading">
-            <template v-slot:action>
-                <AppButton @click="addDeposit">
-                    Dodaj lokatę
-                </AppButton>
-            </template>
-        </DepositCalculator>
-    </Container>
+  <AppContainer>
+    <h1 class="text-2xl">Dodaj informacje o nowej lokacie</h1>
+    <DepositCalculator :data="data" :disable-inputs="loading">
+      <template v-slot:action>
+        <AppButton @click="addDeposit">Dodaj lokatę</AppButton>
+      </template>
+    </DepositCalculator>
+  </AppContainer>
 </template>

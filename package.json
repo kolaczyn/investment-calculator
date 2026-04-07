@@ -8,14 +8,15 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "backend": "json-server db.json",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "oxfmt src/"
+    "format": "prettier --check src",
+    "check-all": "run-s test:unit build-only lint:oxlint lint:eslint format"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
@@ -25,6 +26,7 @@
     "firebase": "^12.11.0",
     "json-server": "^1.0.0-beta.15",
     "pinia": "^3.0.4",
+    "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
     "vue": "beta",
     "vue-router": "^5.0.3"
@@ -48,7 +50,6 @@
     "jiti": "^2.6.1",
     "jsdom": "^28.1.0",
     "npm-run-all2": "^8.0.4",
-    "oxfmt": "^0.37.0",
     "oxlint": "~1.51.0",
     "typescript": "~5.9.3",
     "vite": "beta",

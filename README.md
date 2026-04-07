@@ -5,7 +5,9 @@ Pliz, nie bierzcie tego projektu poważnie w celu podjęcia decyzji finansowej, 
 ## Setup
 
 1. Trzeba mieć zainstalowany bun
-2. Trzeba mieć konto na Firebase, firebase cli oraz być zalogowanym w cli
+2. Trzeba mieć konto na firebase.google.com
+3. Zainstaluj firebase cli - https://firebase.google.com/docs/cli
+3. Uruchom `firebase login`
 3. Uruchom `firebase deploy`
 4. Uzupełnij zmienne w pliku `.env` zgodnie z listą w pliku `src/shared/env.ts`
 5. W Firebase, w Authentication > Settings > Authorized Domain trzeba dodać do listy "localhost"
@@ -52,3 +54,8 @@ EDO0135/1 - EDOmmyy/d
 ## Todosy
 
 - Kapitalizacja odsetek w lokacie
+
+## Inne
+
+- Korzystam z `bun`, ale wywala się skrypt ze sprawdzaniem typów `type-check`, więc na razie z niego nie korzystam :c
+  - link do issue https://github.com/oven-sh/bun/issues/4754
